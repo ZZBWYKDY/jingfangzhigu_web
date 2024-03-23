@@ -46,7 +46,7 @@
               <td>
                   <tr class="link-container">
                   <a @click="toPhoto(FirItem+index)"  href="javascript: void(0)">查看详情</a>
-                  <a href="">下载</a>
+                  <a href="javascript: void(0)">下载</a>
                   <a @click="deleteData(this.showList[FirItem+index].id,this.showList[FirItem+index].type)" href="javascript: void(0)">删除</a>
                   </tr>
               </td>

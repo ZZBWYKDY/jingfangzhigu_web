@@ -468,7 +468,7 @@
   </el-main>
 </template>
 
-<style src="@/assets/main.css"></style>
+<style src="@/components/chat/main.css"></style>
 
 <script setup lang="ts">
   import {
