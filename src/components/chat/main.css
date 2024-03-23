@@ -205,4 +205,63 @@ min-height: 36px;
     margin-bottom: 10px;
     width: 100%;
 }
+  .medical-box {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 20px;
+  }
+  .face-box {
+    display: flex;
+    border: none;
+  }
+  .img-box {
+    margin-right: 10px;
+  }
 
+  .medical-title {
+    text-align: center;
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+  }
+
+  .medical-content {
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .medical-content span {
+    margin-right: 40px;
+  }
+
+  .medical-content.no-border {
+    border: none;
+  }
+
+  .medical-btn-group {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .medical-btn-group span {
+    border: none;
+    border-radius: 5px;
+    background-color: #7fa99d;
+    color: #fff;
+    font-size: 18px;
+    line-height: 30px;
+    display: inline-block;
+    padding: 10px 50px;
+    margin: 0 auto;
+  }
+
+  .medical-btn-group span:nth-child(2) {
+    background-color: #1980a4;
+  }
+
+  .bubb {
+    max-width: 60%;
+  }
