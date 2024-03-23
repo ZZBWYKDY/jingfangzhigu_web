@@ -20,7 +20,8 @@
           />
           <br />
           <button type="submit">登录</button>
-          <p><a @click="$router.push('/check')">忘记密码？</a></p>
+          <button @click="goToHomePage" style="margin-left: 40px;">返回</button>
+          <p><a @click="$router.push('/check')">验证码登录</a></p>
         </div>
         <div id="result"></div>
       </div>
@@ -42,6 +43,10 @@
       };
     },
     methods: {
+      goToHomePage() {
+      // 使用路由进行跳转
+      this.$router.push('/login');
+    },
       async login() {
         const response = await axiosPost(
           '/user/passwordLogin',
