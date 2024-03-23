@@ -1,0 +1,208 @@
+.main .el-row {
+margin-bottom: 20px;
+justify-content: center;
+}
+.el-row:last-child {
+margin-bottom: 0;
+}
+.el-row:first-child {
+margin-top: 10px;
+}
+.main-header1{
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    text-align:center;
+}
+.main-header1 h1{
+    color:#7499F4;
+    margin-top:0px;
+}
+.main-header1 h4{
+    color:grey;
+    margin: 0;
+}
+.content .el-row{
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center; /* 将内容水平居中 */
+}
+
+/*.grid-content {
+border-radius: 4px;
+min-height: 36px;
+}.content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+}右侧属性，内容区1*/
+
+.rectangle {
+    width: 100%;
+    height: 100px;
+    border: 2px solid #7499F4;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}/*右侧属性，长方形1*/
+.rectangle *{
+    flex: 1;
+    margin: 0;
+    padding: 0;
+}
+/*.content22 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    padding: 5px 20px;
+}/*右侧属性，你可以问我--内容区2
+.rectangle2 {
+    width: 100%;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 30px;
+    cursor: pointer;
+}/*右侧属性，长方形2*/
+.el-row .content2{
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: nowrap
+}
+.content2 p{
+    margin: 0px 0px 0 20px;
+    font-size: 14px;
+}
+
+.content22 {
+    display: flex;
+    flex:1;
+    white-space: nowrap; /* 防止文本换行 */
+    overflow: hidden; /* 隐藏溢出的文本 */
+}
+.content22 el-button {
+    flex-grow: 1;
+    white-space: nowrap; /* 防止文本换行 */
+    overflow: hidden; /* 隐藏溢出的文本 */
+    text-overflow: ellipsis; /* 使用省略号代替溢出的文本 */
+    text-align: left !important; /* 使用 !important 覆盖按钮元素上的样式 */
+}
+.content22 .el-button.is-text {
+    color: black;
+    width: 33%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.foot .el-row{
+    flex: 1;
+    margin-left: 0;
+    margin-right: 0;
+}
+.chat{
+    height: 400px;
+}/*右侧属性，占位*/
+.long-rectangle {
+    width: 100%;
+    height: 50px;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+}/*右侧属性，输入框*/
+.foot{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 1.0);
+    margin: 0px 20px 10px 20px;
+    border-radius: 10px;
+    margin-top: auto; 
+    padding: 20px;
+}/*右侧属性，整块输入框3*/
+.foot .el-row {
+    width: 100%;
+    justify-content: flex-start;
+    flex: 1;
+}
+.demo-tabs .custom-tabs-label .el-icon {
+  vertical-align: middle;
+}
+.demo-tabs .custom-tabs-label span {
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.bottom{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}/*右侧属性，3.2*/
+
+.bottom .el-textarea{
+    width: 90%;
+}
+.bottom .el-textarea__inner{
+    box-shadow: none;
+}
+.el-input-group{
+    height: 100px;
+}
+
+.mt-4 .el-input-group__append{
+    background-color:#388aff;
+}
+
+.bottom .button2{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end
+}
+.bottom button{
+    margin: 10px 10px 0 10px;
+}
+
+/* 这些是当时功能方面的属性 */
+.bubble {
+    display: inline-block;
+    background-color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 10px;
+    max-width: 80%;
+    text-align: left;
+    vertical-align: top; /* 顶部对齐，确保头像和聊天气泡顶部对齐 */
+}
+
+.bubble.me {
+    align-self: flex-end;
+    background-color: #7499F4;
+}
+
+.message-container {
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.message-container1 {
+    display: flex;
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    width: 100%;
+}
+

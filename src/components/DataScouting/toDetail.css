@@ -1,0 +1,102 @@
+.mod {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin:auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 60%;
+  height: 80%;
+  overflow: auto;
+}
+.goback {
+  display: block;
+  margin: auto;
+  font-family: FZLanTingHeiS-B-GB-Regular;
+  font-size: 30px;
+  letter-spacing: 3px;
+  line-height:3vh;
+  text-align: left;
+  width:200px;
+  height:40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  background-color: rgba(104, 154, 251, 1);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 20px;
+  }
+
+.mod .header, .mod .body-item-0, .mod .body-item-1, .mod .body-item-2, .mod .body-item-3, .mod .body-item-4 {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.mod .header span, .mod .body-item-0 span, .mod .body-item-1 span, .mod .body-item-2 span, .mod .body-item-3 span, .mod .body-item-4 span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.mod span.label, .mod span.tag, .mod span.label-1, .mod span.tag-1 {
+  font-weight: bold;
+}
+
+.mod .summary {
+  font-size: 14px;
+  color: #333;
+}
+
+.mod hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.mod .label{
+display: block;
+margin: auto;
+overflow: hidden;
+font-family: FZLanTingHeiS-B-GB;
+font-size: 20px;
+font-weight: 400;
+line-height: 23px;
+text-align: center;
+color: rgba(104,153,250,1);
+white-space: break-spaces;
+text-overflow: ellipsis;
+}
+
+.mod .detail {
+  display: block;
+  /* align-self: center; */
+  overflow: hidden;
+  font-family: FZLanTingHeiS-R-GB;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 34px;
+  color: rgba(0,0,0,1);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mod .word, .mod .tag, .mod .label-1, .mod .tag-1 {
+  font-size: 14px;
+}
+
+/* 提升整体的视觉效果 */
+.mod {
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  position: fixed; /* 固定定位，覆盖整个视口 */
+  z-index: 9999; /* 确保位于其他内容上方 */
+  left: 20%;
+  top: 10%;
+  width: 60%;
+  height: 80%;
+  overflow: auto; /* 允许滚动 */
+}

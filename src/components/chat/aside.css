@@ -1,0 +1,62 @@
+.el-row {
+margin-bottom: 20px;
+}
+.el-row:last-child {
+margin-bottom: 0;
+}
+.el-row:first-child {
+margin-top: 10px;
+}
+       
+.newchat{
+    width: 100%;
+    height: 60px;
+}
+.newchat .el-button--primary.is-link, .el-button--primary.is-plain, .el-button--primary.is-text {
+    --el-button-text-color:#7499F4; 
+    --el-button-bg-color:  rgba(red, green, blue, 0);
+    --el-button-border-color: #7499F4; 
+    --el-button-hover-text-color: var(--el-color-white);
+    --el-button-hover-bg-color: #7499F4; 
+    --el-button-hover-border-color: #7499F4; 
+    --el-button-active-text-color: var(--el-color-white);
+}
+.newchat .el-button{
+    font-size: 14px;
+    font-weight: bold;
+    border-width: 1.5px;
+}
+.search-history .el-input__wrapper{
+    background-color:transparent;
+    --el-input-icon-color: #ffffff;
+    --el-input-placeholder-color: #ffffff;
+    box-shadow: 0 0 0 1px #ffffff inset;
+}
+.history{
+    flex: 1;
+}
+  /* 使用全局的颜色变量来设置菜单的背景颜色 */
+.el-menu{
+    width: 100%;
+    background-color:transparent;
+    border: 0;
+}
+.custom-sub-menu {
+    background-color: transparent;
+  }
+.el-menu-item{
+    margin: 10px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1.5px solid #7499F4;
+    background-color: transparent;
+}
+.menu-item-text {
+    width: 100%; /* 设置菜单子元素宽度为父元素宽度 */
+    white-space: nowrap; /* 禁止文本换行 */
+    overflow: hidden; /* 溢出内容隐藏 */
+    text-overflow: ellipsis; /* 使用省略号代替溢出部分 */
+    border-radius: 4px;
+    background-color: transparent;
+}
+

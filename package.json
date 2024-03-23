@@ -1,0 +1,33 @@
+{
+  "name": "jingfangzhigu_web_frontya",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "ant-design-vue": "^3.2.20",
+    "axios": "^1.6.7",
+    "babel-runtime": "^6.26.0",
+    "element-plus": "^2.6.1",
+    "html2canvas": "^1.4.1",
+    "jquery": "^3.7.1",
+    "marked": "^12.0.1",
+    "qs": "^6.12.0",
+    "vue": "^3.3.11",
+    "vue-markdown": "^2.2.4",
+    "vue-router": "^4.3.0",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "@vitejs/plugin-vue": "^4.5.2",
+    "unplugin-element-plus": "^0.8.0",
+    "unplugin-vue-components": "^0.26.0",
+    "vite": "^5.0.8"
+  }
+}

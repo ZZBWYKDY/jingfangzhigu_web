@@ -1,0 +1,33 @@
+.background{
+    height: 100vh;
+    background-image: url('@/assets/chat_pictures/chat_background.png');
+    background-size: cover;
+  }
+  .el-header{
+    padding: 20px; 
+    height: 90px;      
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .leftandright{
+    padding: 0px 20px 20px 20px;
+  }
+  .aside {
+    background-color:rgba(255,255,255,0.2);
+    border-radius: 10px;
+    margin: 0 20px 0 0;
+    padding: 10px;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .main {
+    background-color:rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
