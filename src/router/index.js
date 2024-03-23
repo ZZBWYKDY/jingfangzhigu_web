@@ -1,6 +1,11 @@
 import{ createRouter,createWebHashHistory } from "vue-router";
 
 const routes=[
+  {
+    path:"/header",
+    name:'header',//名字
+    component:()=>import('../components/common/header.vue')
+},
     {
         path:"/DataScouting",
         name:'DataScouting',//名字
