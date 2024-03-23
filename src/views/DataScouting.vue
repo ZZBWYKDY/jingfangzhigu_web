@@ -1,28 +1,8 @@
 <template>
   <el-container class="background">
     <el-header class="el-header" >
-          <img class='logoimg' src="@/assets/chat_pictures/logo.png"/>
-      <div class="search">
-        <el-dropdown>
-          <el-avatar :src="imageUrl" class='avator' />
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item @click="goPersonal">个人中心</el-dropdown-item>
-              <el-dropdown-item @click="goUser">设置</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-          
-          <el-button class="search-choice">
-              <h4 >功能反馈</h4>
-              <img src="@/assets/chat_pictures/remark.png" />
-          </el-button> 
-          <el-button class="search-choice">
-              <h4 >经方智谷小程序</h4>
-              <img src="@/assets/chat_pictures/program.png" />
-          </el-button>            
-      </div>
-    </el-header>
+         <Header />
+      </el-header>
     
     <img @click="navigateToChat" style="position: fixed; top: 80px; left: 20px;width: 40px;margin-left:20px ;" src="@/assets/DataScouting_pictures/goback.png" alt="">
     <div class="body-body">
@@ -103,6 +83,7 @@ import faceDiagnosisModal from '@/components/DataScouting/faceDiagnosisModal.vue
 import jingfangModal from '@/components/DataScouting/jingfangModal.vue'
 import Banner from '@/components/DataScouting/carousel.vue'
 import SideBar from '@/components/DataScouting/sidebar-com.vue'
+import Header from "@/components/common/header.vue"
 let messageArray = ref([]);
 // 处理子组件发出的自定义事件
 const handleMessagesUpdated = (data) => {
@@ -154,7 +135,8 @@ components: {
     medicalHistoriesModal, 
     jingfangModal,
     Banner,
-    SideBar
+    SideBar,
+    Header
   },
 methods: {
   navigateToChat(){
