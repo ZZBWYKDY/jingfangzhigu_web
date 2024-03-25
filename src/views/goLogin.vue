@@ -31,7 +31,7 @@
 
 <script>
   import axios from 'axios';
-  import { axiosPost } from '@/config/http';
+  import { axiosPost } from '@/utils/http';
   import { useRouter } from 'vue-router';
   // const router = useRouter();
   export default {
