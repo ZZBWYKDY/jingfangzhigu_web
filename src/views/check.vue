@@ -9,20 +9,19 @@
             type="text"
             placeholder="请输入您的账号..."
             v-model="username"
-            required
           />
-          <button class="btn-second" @click="sendVerificationCode">
-            获取验证码
-          </button>
           <br />
           <input
             type="password"
             placeholder="请输入验证码..."
             v-model="password"
-            required
           />
+          <button style="width:90px" class="btn-second" @click="sendVerificationCode">
+             {{second===totalSecond ? "获取验证码":second+"秒后获取"}}
+            </button>
           <br />
           <button class="btn-first" @click="goChat">登录</button>
+          <button @click="goToHomePage" class="btn-first" style="margin-left: 40px;">返回</button>
         </div>
       </div>
     </form>
@@ -39,12 +38,31 @@ export default {
       username: "",
       password: "",
       error: "",
+      totalSecond:60,
+      second:60,
+      timer:null,
     };
   },
   methods: {
+    goToHomePage() {
+      // 使用路由进行跳转
+      this.$router.push('/login');
+    },
+    validFn () {
+      if (!/^1[3-9]\d{9}$/.test(this.username)) {
+        alert('请输入正确的手机号')
+        return false
+      }
+      return true
+    },
     async sendVerificationCode() {
+      if (!this.validFn()) {
+        // 如果没通过校验，没必要往下走了
+        return
+      }
+      if(!this.timer&&this.second===this.totalSecond){
+        console.log('lalala')
       try {
-        // 向后端发送登录请求
         const response = await axios.post(
           "/user/sendSms",
           {
@@ -58,16 +76,33 @@ export default {
             },
           }
         );
-        alert(response.data.message);
+        if (response.data.code === "SUCCESS") {
+        } else {
+          console.log(response.data.code);
+          alert(this.error);
+        }
       } catch (error) {
         if (error.response) {
           this.error = error.response.data.message;
         } else {
           this.error = "登录失败，请重试";
         }
+        console.log(response.data.code);
         alert(this.error);
       }
+        this.timer=setInterval(()=>{
+          this.second--
+          if(this.second<=0){
+            clearInterval(this.timer)
+            this.timer=null
+            this.second=this.totalSecond
+          }
+        },1000)
+      }
+      
     },
+
+
     async goChat() {
       try {
         // 向后端发送登录请求
@@ -132,7 +167,7 @@ h1 {
 input[type="password"] {
   padding: 10px;
   margin: 10px;
-  width: 300px;
+  width: 210px;
   border-radius: 12px;
   border: 2px solid #ccc;
   margin-bottom: 10px;
@@ -140,7 +175,7 @@ input[type="password"] {
 input[type="text"] {
   padding: 10px;
   margin: 10px;
-  width: 210px;
+  width: 300px;
   border-radius: 12px;
   border: 2px solid #ccc;
   margin-bottom: 10px;
