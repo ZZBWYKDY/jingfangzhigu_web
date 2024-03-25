@@ -40,6 +40,7 @@ margin-top: 10px;
     width: 100%;
     background-color:transparent;
     border: 0;
+    position: absolute;
 }
 .custom-sub-menu {
     background-color: transparent;
@@ -59,4 +60,5 @@ margin-top: 10px;
     border-radius: 4px;
     background-color: transparent;
 }
+
 

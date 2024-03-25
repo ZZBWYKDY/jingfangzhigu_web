@@ -468,7 +468,7 @@
   </el-main>
 </template>
 
-<style src="@/assets/main.css"></style>
+<style src="@/components/chat/main.css"></style>
 
 <script setup lang="ts">
   import {
@@ -476,6 +476,7 @@
     Microphone,
     DataAnalysis,
     ChatLineSquare,
+MessageBox,
   } from '@element-plus/icons-vue';
   import { Monitor, Camera } from '@element-plus/icons-vue';
   import { LoadingOutlined } from '@ant-design/icons-vue';
@@ -495,10 +496,11 @@
   } from 'vue';
   import axios from 'axios';
   import html2canvas from 'html2canvas';
-  import { axiosPost, axiosGet, axiosDelete } from '@/config/http';
+  import { axiosPost, axiosGet, axiosDelete } from '@/utils/http';
   import marked from 'marked/marked.min.js';
   import { useRouter } from 'vue-router';
   const router = useRouter();
+  const canSendMessage = ref(true);
   const handleMenuClick = (path) => {
   router.push(path);
 };
@@ -643,6 +645,7 @@
     currentEventSource = eventSource; // 更新当前订阅
     eventSource.addEventListener('message', function (event) {
       isLoading.value = false;
+      canSendMessage.value = false;
       let data = JSON.parse(event.data);
       if (data['data'] && data['data']['delta']) {
         messageContent.value += data['data']['delta'];
@@ -662,6 +665,7 @@
     });
 
     eventSource.addEventListener('end', function (event) {
+      canSendMessage.value = true;
       // getMedicalHistory()
       let endData = JSON.parse(event.data);
       //1 通过finalDiagnosis判断
@@ -703,6 +707,10 @@
 
   const emit = defineEmits(['update-chat-name']);
   const sendMessage = (activeTab) => {
+    if(!canSendMessage.value || isLoading.value){
+      ElMessage.error('回复消息正在生成')
+      return false
+    }
     if ((inputMessage.value.trim() !== '' && props.messageArray) || activeTab) {
       // if (
       //   props.selectedChatId !== undefined &&
@@ -719,49 +727,49 @@
         emit('update-chat-name', inputMessage.value, chatId.value);
         updateChatName(chatId.value, inputMessage.value);
       }
-
       const requestDataToSend = {
         messageId: generateUUID(),
         text: inputMessage.value,
         messages: toRaw([...messages]),
       };
-      activeTab != 'third' && subscribeToChat();
-      setTimeout(() => {
-        fetchResponse(requestDataToSend);
-        // 发送消息后触发事件，将第一条消息内容作为参数传递
-        if (activeTab == 'third') {
-          messages.splice(0, messages.length); // 清空当前消息数组
-          messages.push({
-            chatId: currentChatId,
-            content: '请直接在输入框右侧上传面部图片',
-            createTime: '',
-            messageId: generateUUID(),
-            roleId: 2,
-          });
-        } else {
-          messages.push(
-            {
+        activeTab != 'third' && subscribeToChat();
+        setTimeout(() => {
+          fetchResponse(requestDataToSend);
+          // 发送消息后触发事件，将第一条消息内容作为参数传递
+          if (activeTab == 'third') {
+            messages.splice(0, messages.length); // 清空当前消息数组
+            messages.push({
               chatId: currentChatId,
-              content: inputMessage.value,
-              createTime: '',
-              messageId: generateUUID(),
-              roleId: 1,
-            },
-            {
-              chatId: currentChatId,
-              content: '',
+              content: '请直接在输入框右侧上传面部图片',
               createTime: '',
               messageId: generateUUID(),
               roleId: 2,
-            }
-          ); // 将用户输入的消息添加到本地消息数组
-          isLoading.value = true;
-        }
-
-        inputMessage.value = ''; // 清空输入框
-        showChatBox.value = true; // 显示聊天框
-      }, 500);
-      // }
+            });
+          } 
+          else {
+            messages.push(
+              {
+                chatId: currentChatId,
+                content: inputMessage.value,
+                createTime: '',
+                messageId: generateUUID(),
+                roleId: 1,
+              },
+              {
+                chatId: currentChatId,
+                content: '',
+                createTime: '',
+                messageId: generateUUID(),
+                roleId: 2,
+              }
+            ); // 将用户输入的消息添加到本地消息数组
+            isLoading.value = true;
+          } 
+          inputMessage.value = ''; // 清空输入框
+          showChatBox.value = true; // 显示聊天框
+        }, 500);
+    } else {
+      console.log("目前没有发送新消息");
     }
   };
 

@@ -8,7 +8,7 @@ import { h } from 'vue';
 import { ElNotification } from 'element-plus';
 import { Plus } from "@element-plus/icons-vue";
 import type { UploadProps } from "element-plus";
-import { axiosPost,axiosGet } from "@/config/http";
+import { axiosPost,axiosGet } from "@/utils/http";
 import axios from "axios";
 const radio2 = ref("1");
 const input2 = ref("");
@@ -89,7 +89,10 @@ const selectedKeys = ref(["personal"]); // 更新为匹配 'user' 键
 const router = useRouter();
 
 const selectItem = ({ item, key }) => {
+  if (item === 'history' || 'help') {}
+  else {
   router.push({ path: key });
+  }
 };
 const handleMenuClick = (key) => {
   selectedKeys.value = [key];

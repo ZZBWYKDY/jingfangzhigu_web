@@ -22,12 +22,29 @@ axiosX.interceptors.request.use(
     config.headers['authorization'] = localStorage.getItem('token')
       ? localStorage.getItem('token')
       : '';
-    return config;
+    // 防抖处理
+    const tokenKey = `${config.method}-${config.url}`;
+    const cancel = debounceTokenCancel.get(tokenKey);
+    if (cancel) {
+      cancel();
+    }
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => {
+        clearTimeout(timer);
+        resolve(config);
+      }, 800);
+      debounceTokenCancel.set(tokenKey, () => {
+        clearTimeout(timer);
+        resolve(new Error('取消请求'));
+      });
+    });
   },
   (err) => {
     return Promise.reject(err);
   }
 );
+
+
 
 // response 拦截
 axiosX.interceptors.response.use(
@@ -64,6 +81,20 @@ axiosX.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// 节流处理
+let lastTime = new Date().getTime();
+axiosX.interceptors.request.use(config => {
+  const nowTime = new Date().getTime();
+  if (nowTime - lastTime < 5000) {
+    return Promise.reject(new Error('节流处理中，稍后再试'));
+  }
+  lastTime = nowTime;
+  return config;
+}, error => {
+  console.log(error);
+  return Promise.reject(error);
+});
 
 /**
  * @param {string}  method   请求方法
