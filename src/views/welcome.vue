@@ -1,18 +1,35 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import {ref,onMounted} from 'vue'
+import store from '@/store/index.js'
 const router = useRouter();
 function Login(){
     router.push({path:'/login'})
 }
-
+const imageUrl = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png')
+onMounted(()=>{
+    let headUrl = localStorage.getItem('headimg')
+    console.log(store.state.token, '这是我的token')
+    if(headUrl){
+        imageUrl.value = headUrl
+    }
+})
 </script>
 
 <template>
 <div class="body">
-    <div class="header">
-    <a @click="goLogin">经方智谷小程序</a>
-    <a @click="goLogin">功能反馈</a>
-    <a @click="User"><img src="/src/assets/login_pictures/profile_photo.jpg" alt="user" class="user"></a>
+  <div class="header">
+      <el-button class="search-choice">
+          <h4 >功能反馈</h4>
+          <img src="@/assets/chat_pictures/remark.png" />
+      </el-button> 
+      <el-button class="search-choice">
+          <h4 >经方智谷小程序</h4>
+          <img src="@/assets/chat_pictures/program.png" />
+      </el-button> 
+      <el-dropdown>
+      <el-avatar :src="imageUrl" class='avator' />
+    </el-dropdown>           
   </div>
   <div class="main">
     <div class="left">
@@ -70,7 +87,25 @@ function Login(){
   font-size:20px;
   box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.5); /* 添加下阴影 */
 }
-
+.search-choice {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 0;
+      padding: 0px;
+      cursor: pointer;
+      background-color:rgb(255, 255, 255,0); 
+      border-color:rgb(255, 255, 255,0); 
+  }
+  .search-choice h4{
+    color:#7499F4; 
+    margin: auto 5px auto 0;
+  }
+  .search-choice img{
+    width: 24px; 
+    height:24px; 
+    margin: auto 20px auto 0;
+  }
 
 
 .user {

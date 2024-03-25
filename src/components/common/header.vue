@@ -51,7 +51,7 @@ onMounted(()=>{
     align-items: center;
   }
   .logoimg {
-      width: 100px;
+      width: 90px;
       height: 90%;
       margin: auto 10px;
   }

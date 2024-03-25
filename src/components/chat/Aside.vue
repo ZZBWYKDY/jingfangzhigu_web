@@ -25,6 +25,8 @@
             <el-menu-item
               v-for="(dialogue, index) in dialoguesArray"
               :key="index"
+              :class="{ 'selected': dialogue.chatId }"
+              @click="selectChat(dialogue.chatId)"
             >
               <div class="menu-item-text" @click="selectChat(dialogue.chatId)">
                 {{ dialogue.chatName }}

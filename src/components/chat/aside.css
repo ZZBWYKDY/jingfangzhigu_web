@@ -59,4 +59,6 @@ margin-top: 10px;
     border-radius: 4px;
     background-color: transparent;
 }
-
+.selected {
+    background-color: #7499F4;;
+  }
