@@ -348,11 +348,13 @@
                 :icon="Microphone"
                 round
                 @click="startRecording"
+
               />
               <el-button
                 type="primary"
                 :icon="Position"
                 @click="sendMessage"
+                :loading="isoading"
                 round
               />
             </div>
