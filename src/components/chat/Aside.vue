@@ -25,8 +25,7 @@
             <el-menu-item
               v-for="(dialogue, index) in dialoguesArray"
               :key="index"
-              :class="{ 'selected': dialogue.chatId }"
-              @click="selectChat(dialogue.chatId)"
+              :class="{ 'selected': dialogue.chatId === selectedChatId }"
             >
               <div class="menu-item-text" @click="selectChat(dialogue.chatId)">
                 {{ dialogue.chatName }}
@@ -100,8 +99,10 @@ const getAllDialogues = async () => {
   }
 };
 const emits = defineEmits(["select-chat", "message-updated"]);
+const selectedChatId = ref('')
 const selectChat = (chatId) => {
   // 这里可以调用获取对应聊天信息的方法
+  selectedChatId.value = chatId;
   getMessagesByChatId(chatId);
   // 向父组件发出事件
   emits("select-chat", chatId);

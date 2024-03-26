@@ -50,7 +50,7 @@ margin-top: 10px;
     text-align: center;
     border-radius: 4px;
     border: 1.5px solid #7499F4;
-    background-color: transparent;
+    /* background-color: transparent; */
 }
 .menu-item-text {
     width: 100%; /* 设置菜单子元素宽度为父元素宽度 */
@@ -61,5 +61,5 @@ margin-top: 10px;
     background-color: transparent;
 }
 .selected {
-    background-color: #7499F4;;
-  }
+    background-color: #7499F4  !important;
+}
