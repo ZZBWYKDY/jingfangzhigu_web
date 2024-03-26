@@ -188,7 +188,7 @@
               align-items: center;
             "
           >
-            <div class="avatar">
+            <div class="avatar" style="align-self:flex-start">
               <img
                 src="@/assets/chat_pictures/icon.png"
                 style="width: 40px; height: 40px; border-radius: 50%"
