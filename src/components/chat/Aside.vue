@@ -1,5 +1,5 @@
 <template>
-  <el-aside class="aside">
+  <el-aside class="aside" style="overflow: hidden;">
     <el-row class="newchat">
       <el-button class="newchat" type="primary" plain @click="createNewChat"
         >新建对话</el-button
@@ -20,7 +20,7 @@
           <template #title>
             <span>网页历史对话</span>
           </template>
-          <el-scrollbar max-height="60vh">
+          <el-scrollbar max-height="39vw" style="overflow: auto;">
             <!-- 渲染对话列表 -->
             <el-menu-item
               v-for="(dialogue, index) in dialoguesArray"

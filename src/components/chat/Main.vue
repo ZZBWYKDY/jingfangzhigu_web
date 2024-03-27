@@ -2,7 +2,7 @@
   <el-main class="main">
     <div
       class="scroll"
-      style="height: 100%; overflow: hidden; overflow-y: scroll; "
+      style="height: 705px; overflow: hidden; overflow-y: scroll; "
     >
       <div v-if="!showChatBox">
         <el-row 
