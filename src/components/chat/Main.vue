@@ -356,7 +356,7 @@
                 type="primary"
                 :icon="Position"
                 @click="sendMessage"
-                :loading="isoading"
+                :loading="isLoading"
                 round
               />
             </div>
@@ -389,6 +389,7 @@
                 type="primary"
                 :icon="Position"
                 @click="sendMessage"
+                :loading="isLoading"
                 round
               />
             </div>
@@ -430,6 +431,7 @@
                 type="primary"
                 :icon="Position"
                 @click="sendMessage"
+                :loading="isLoading"
                 round
               />
             </div>
@@ -462,6 +464,7 @@
                 type="primary"
                 :icon="Position"
                 @click="sendMessage"
+                :loading="isLoading"
                 round
               />
             </div>
