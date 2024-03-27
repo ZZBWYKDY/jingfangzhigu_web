@@ -18,6 +18,7 @@ onMounted(()=>{
 
 <template>
 <div class="body">
+  <div class="body-wrapper">
   <div class="header">
       <el-button class="search-choice">
           <h4 >功能反馈</h4>
@@ -48,6 +49,7 @@ onMounted(()=>{
         </div>
       </div>
     </div>
+  </div>
 </div>
 </template>
 
@@ -63,8 +65,12 @@ onMounted(()=>{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center; 
+  background-attachment: fixed;
     }
 
+  .body-wrapper{
+    overflow: auto;
+  }
       .logo {
       position: absolute;
       top: 10px;
@@ -165,7 +171,6 @@ margin-right:30px;
 justify-content: end;
   align-items: center; 
   height:90%;
-
   }
 
 .center-bottom { 
