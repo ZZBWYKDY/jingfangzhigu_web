@@ -1,10 +1,10 @@
 <template>
   <el-container class="background">
+  <el-container class="wrapper">
     <el-header class="el-header" >
          <Header />
       </el-header>
     
-    <img @click="navigateToChat" style="position: fixed; top: 80px; left: 20px;width: 40px;margin-left:20px ;" src="@/assets/DataScouting_pictures/goback.png" alt="">
     <div class="body-body">
       
     <div id="sidebar">
@@ -55,7 +55,7 @@
         </table>
       </div>
         <div style="display: flex;
-  justify-content: center; margin: 15px auto;">
+  justify-content: center; margin:  auto;margin-top:10px">
         <el-pagination :page-size="3" :hide-on-single-page="value" background layout="prev, pager, next" :total="total" @current-change="handleCurrentChange" />
         </div>
     </div>
@@ -72,7 +72,7 @@
     <faceDiagnosisModal @notify="handleNotify" :index="selectedItem"  v-if="isModalVisible&&kind==='szjl'"></faceDiagnosisModal>
     <jingfangModal @notify="handleNotify" :index="selectedItem" v-if="isModalVisible&&kind==='dzbl'&&horj==='d'"></jingfangModal>
 
-  </el-container>
+  </el-container></el-container>
 </template>
 <script>
 import axios from "axios";
@@ -321,17 +321,19 @@ methods: {
   background-color: #ffffff; /* White background */
   padding: 20px;
   border-radius: 10px; /* Rounded corners */
-  margin-right: 20px; 
-  
+ 
 }
 
 .body-bottom {
-  clear: both; /* Clear the float to ensure footer is at the bottom */
-  width: calc(100% - 40px); /* Subtract left and right padding */
+  clear: both;
+  display: flexbox;
+  justify-content:space-around;
   height: 50px; /* Adjust the height as needed */
-  /* background-color: #999; */
   margin-top: 20px; /* Add margin above the footer */
+  width: 60%;
+  margin: auto;
 }
+
 .followup {
 font-family: FZLanTingHeiS-B-GB-Regular;
 font-size: 30px;
@@ -374,12 +376,60 @@ text-align: center;
 text-decoration: none;
 border-radius: 10px;
 }
+/* }
+.followup {
+  display: block;
+float:right;
+margin-right: 10vw;
+font-family: FZLanTingHeiS-B-GB-Regular;
+font-size: 30px;
+letter-spacing: 3px;
+line-height:3vh;
+width:15vw;
+height:6vh;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: normal;
+background-color: rgba(118, 189, 179, 1);
+border: none;
+color: white;
+padding: 10px 20px;
+text-align: center;
+text-decoration: none;
+border-radius: 10px;
+}
+.upload{
+  display: block;
+  left:30px;
+font-family: FZLanTingHeiS-B-GB-Regular;
+font-size: 30px;
+letter-spacing: 3px;
+line-height:3vh;
+width:15vw;
+height:6vh;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: normal;
+background-color: rgba(104, 154, 251, 1);
+border: none;
+color: white;
+padding: 10px 20px;
+text-align: center;
+text-decoration: none;
+border-radius: 10px;
+}
 
-
+ */
 
 .table-case {
-  overflow: hidden; /* Clear the float */
-  /* padding: 10px;  */
+  overflow: auto; 
+  float: right;
+  height: 100%; 
+  width: 75%; /* Adjust the width as needed */
+  /* padding: 20px; */
+  border-radius: 10px; /* Rounded corners */
+  /* margin-right: 20px;  */
+
 }
 .link-container {
     display: flex;
@@ -468,6 +518,7 @@ cursor: pointer;
   height: 100vh;
   background-image: url('@/assets/chat_pictures/chat_background.png');
   background-size: cover;
+  background-attachment: fixed;
 }
 .el-header{
   padding: 20px; 
@@ -543,5 +594,10 @@ cursor: pointer;
   padding: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.wrapper{
+  height: 100%;
+  overflow: auto;
 }
 </style>

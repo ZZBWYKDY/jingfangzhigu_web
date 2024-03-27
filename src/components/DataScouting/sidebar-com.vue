@@ -48,8 +48,8 @@ export default {
 <style>
 
 .sidebar-icon {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: width;
   text-align: center; /* Center the icon */
   margin: 0,auto;
   margin-bottom: 20px; /* Space below the icon */
@@ -60,7 +60,7 @@ export default {
 }
 
 .sidebar-icon img {
-  width: 150px; 
+  width: 100%; 
   height: auto;
 }
 
