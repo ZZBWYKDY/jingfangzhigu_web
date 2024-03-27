@@ -2,10 +2,12 @@
   <el-main class="main">
     <div
       class="scroll"
-      style="height: 420px; overflow: hidden; overflow-y: scroll"
+      style="height: 100%; overflow: hidden; overflow-y: scroll; "
     >
       <div v-if="!showChatBox">
-        <el-row class="main">
+        <el-row 
+        class="main"
+        style="padding-bottom: 8px; margin-bottom: 20px;" >
           <el-row
             class="main-header1"
             id="main-header1"
@@ -83,7 +85,7 @@
             </el-row>
           </el-row>
           <el-row class="content2">
-            <p style="margin: 0 20px; font-size: 14px">你可以问我：</p>
+            <p style="margin: auto 20px; font-size: 16px; font-weight: bold;">你可以问我：</p>
             <div
               class="content22"
               style="text-align: left"

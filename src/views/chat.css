@@ -1,7 +1,12 @@
 .background{
-    height: 100vh;
     background-image: url('@/assets/chat_pictures/chat_background.png');
     background-size: cover;
+    height: 100vh;
+    background-attachment: fixed;
+  }
+  .wrapper{
+    height: 100%;
+    overflow: auto;
   }
   .el-header{
     padding: 20px; 

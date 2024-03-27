@@ -25,6 +25,7 @@ const handleUpdateChatName = (newChatNameValue, chatId) => {
 
 <template>
     <el-container class="background">
+    <el-container class="wrapper">
       <el-header class="el-header" >
          <Header />
       </el-header>
@@ -33,6 +34,7 @@ const handleUpdateChatName = (newChatNameValue, chatId) => {
         <Main  :messageArray = "messageArray" :selectedChatId="selectedChatId" @update-chat-name="handleUpdateChatName"/>
       </el-container>
     </el-container>
+  </el-container>
   </template>
 
 <style src="@/views/chat.css" >

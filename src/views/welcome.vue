@@ -32,15 +32,22 @@ onMounted(()=>{
     </el-dropdown>           
   </div>
   <div class="main">
+
     <div class="left">
         <img src="/src/assets/login_pictures/logo.png" alt="Logo" class="logo">
         <h1>欢迎来到<span class="highlight">经方智谷</span></h1>
         <h2>开启您的中医诊疗之旅吧</h2>
         <p>——您的私人ai中医诊疗助手——</p >
     </div>
-    <div class="center-bottom"><a @click="Login">开始问询！</a></div >
-       <div><img src="/src/assets/login_pictures/arrow_down.png" alt="arrow" class="arrow"></div>
-     </div>
+    <div class="container-wrapper">
+      <div class="container">
+        <div class="center-bottom"><a @click="Login">开始问询！</a></div >
+          <div  class="arrow-container">
+            <img src="/src/assets/login_pictures/arrow_down.png" alt="arrow" class="arrow">
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 </template>
 
@@ -66,12 +73,6 @@ onMounted(()=>{
       height: auto; /* 让高度按比例自动调整 */
     }
 
-    .arrow {
-      position: absolute;
-      top: 830px;
-      left: 760px;
-      height: auto; /* 让高度按比例自动调整 */
-    }
 
 .header {
   position: fixed;
@@ -157,18 +158,27 @@ font-weight:bold;
 margin-right:30px;
 }
 
+
+.container{
+  display: flex;
+  flex-direction: column;
+justify-content: end;
+  align-items: center; 
+  height:90%;
+
+  }
+
 .center-bottom { 
-  width: 40%;
-  position: absolute; 
-  bottom: 100px;  
-  left: 710px; 
   font-size: 50px;
+}
+.arrow {
+  height: auto; /* 让高度按比例自动调整 */
+  margin-left: -50px;
 }
 
 .highlight {
   font-size: 60px;
 }
-
 
 .center {
   width: 30%;
