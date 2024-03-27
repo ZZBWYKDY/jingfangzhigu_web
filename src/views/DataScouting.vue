@@ -4,6 +4,7 @@
     <el-header class="el-header" >
          <Header />
       </el-header>
+      <img @click="navigateToChat" style="position: fixed; top: 80px; left: 20px;width: 40px;margin-left:20px ;" src="@/assets/DataScouting_pictures/goback.png" alt="">
     
     <div class="body-body">
       
