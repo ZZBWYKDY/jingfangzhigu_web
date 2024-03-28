@@ -1,18 +1,22 @@
 .main .el-row {
-margin-bottom: 20px;
 justify-content: center;
 }
+
 .el-row:last-child {
 margin-bottom: 0;
 }
 .el-row:first-child {
 margin-top: 10px;
 }
+.content .el-row:last-child{
+    margin-bottom: 40px;
+}
 .main-header1{
     padding: 0;
     display: flex;
     flex-direction: column;
     text-align:center;
+    margin-bottom: 60px;
 }
 .main-header1 h1{
     color:#7499F4;
@@ -25,10 +29,13 @@ margin-top: 10px;
 .content .el-row{
     width: 100%;
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     justify-content: center; /* 将内容水平居中 */
+   
 }
-
+.content{
+    align-items: flex-start; /* 垂直居中 */
+}
 /*.grid-content {
 border-radius: 4px;
 min-height: 36px;
@@ -41,7 +48,7 @@ min-height: 36px;
 
 .rectangle {
     width: 100%;
-    height: 100px;
+    height: 178px;
     border: 2px solid #7499F4;
     background-color: rgba(255, 255, 255, 1);
     border-radius: 10px;
@@ -75,10 +82,22 @@ min-height: 36px;
     line-height: 30px;
     cursor: pointer;
 }/*右侧属性，长方形2*/
+
+.rectangle h4{
+    font-size: 25px;
+    font-weight: bold;
+    font-family:方正兰亭粗黑简体;
+}
+
+.rectangle p{
+    font-size: 20px;
+    font-family:方正兰亭黑简体;
+}
+
 .el-row .content2{
     width: 100%;
     justify-content: flex-start;
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     flex-wrap: nowrap
 }
@@ -92,19 +111,23 @@ min-height: 36px;
     flex:1;
     white-space: nowrap; /* 防止文本换行 */
     overflow: hidden; /* 隐藏溢出的文本 */
+    text-align: left;
 }
 .content22 el-button {
     flex-grow: 1;
     white-space: nowrap; /* 防止文本换行 */
     overflow: hidden; /* 隐藏溢出的文本 */
-    text-overflow: ellipsis; /* 使用省略号代替溢出的文本 */
     text-align: left !important; /* 使用 !important 覆盖按钮元素上的样式 */
+    
 }
 .content22 .el-button.is-text {
     color: black;
     width: 33%;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 16px;
+    justify-content: flex-start;
+    height: 45px;
 }
 
 .foot .el-row{
@@ -131,6 +154,7 @@ min-height: 36px;
     border-radius: 10px;
     margin-top: auto; 
     padding: 20px;
+    
 }/*右侧属性，整块输入框3*/
 .foot .el-row {
     width: 100%;
@@ -140,9 +164,20 @@ min-height: 36px;
 .demo-tabs .custom-tabs-label .el-icon {
   vertical-align: middle;
 }
-.demo-tabs .custom-tabs-label span {
+.demo-tabs .custom-tabs-label  {
   vertical-align: middle;
   margin-left: 4px;
+}
+.demo-tabs .el-tabs__item{
+    font-size: 16px;
+}
+
+.demo-tabs .el-tabs__item.is-active  {
+  font-size: 18px;
+}
+.demo-tabs .el-tabs__item {
+    padding: 0;
+    padding-right: 30px;
 }
 .bottom{
     display: flex;
@@ -155,6 +190,8 @@ min-height: 36px;
 }
 .bottom .el-textarea__inner{
     box-shadow: none;
+    height: 155px;
+    font-size: 20px;
 }
 .el-input-group{
     height: 100px;

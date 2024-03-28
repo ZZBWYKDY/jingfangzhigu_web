@@ -1,29 +1,55 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import {ref,onMounted} from 'vue'
+import store from '@/store/index.js'
 const router = useRouter();
 function Login(){
     router.push({path:'/login'})
 }
-
+const imageUrl = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png')
+onMounted(()=>{
+    let headUrl = localStorage.getItem('headimg')
+    console.log(store.state.token, '这是我的token')
+    if(headUrl){
+        imageUrl.value = headUrl
+    }
+})
 </script>
 
 <template>
 <div class="body">
-    <div class="header">
-    <a @click="goLogin">经方智谷小程序</a>
-    <a @click="goLogin">功能反馈</a>
-    <a @click="User"><img src="/src/assets/login_pictures/profile_photo.jpg" alt="user" class="user"></a>
+  <div class="body-wrapper">
+  <div class="header">
+      <el-button class="search-choice">
+          <h4 >功能反馈</h4>
+          <img src="@/assets/chat_pictures/remark.png" />
+      </el-button> 
+      <el-button class="search-choice">
+          <h4 >经方智谷小程序</h4>
+          <img src="@/assets/chat_pictures/program.png" />
+      </el-button> 
+      <el-dropdown>
+      <el-avatar :src="imageUrl" class='avator' />
+    </el-dropdown>           
   </div>
   <div class="main">
+
     <div class="left">
         <img src="/src/assets/login_pictures/logo.png" alt="Logo" class="logo">
         <h1>欢迎来到<span class="highlight">经方智谷</span></h1>
         <h2>开启您的中医诊疗之旅吧</h2>
         <p>——您的私人ai中医诊疗助手——</p >
     </div>
-    <div class="center-bottom"><a @click="Login">开始问询！</a></div >
-       <div><img src="/src/assets/login_pictures/arrow_down.png" alt="arrow" class="arrow"></div>
-     </div>
+    <div class="container-wrapper">
+      <div class="container">
+        <div class="center-bottom"><a @click="Login">开始问询！</a></div >
+          <div  class="arrow-container">
+            <img src="/src/assets/login_pictures/arrow_down.png" alt="arrow" class="arrow">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -39,8 +65,12 @@ function Login(){
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center; 
+  background-attachment: fixed;
     }
 
+  .body-wrapper{
+    overflow: auto;
+  }
       .logo {
       position: absolute;
       top: 10px;
@@ -49,12 +79,6 @@ function Login(){
       height: auto; /* 让高度按比例自动调整 */
     }
 
-    .arrow {
-      position: absolute;
-      top: 830px;
-      left: 760px;
-      height: auto; /* 让高度按比例自动调整 */
-    }
 
 .header {
   position: fixed;
@@ -70,7 +94,25 @@ function Login(){
   font-size:20px;
   box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.5); /* 添加下阴影 */
 }
-
+.search-choice {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 0;
+      padding: 0px;
+      cursor: pointer;
+      background-color:rgb(255, 255, 255,0); 
+      border-color:rgb(255, 255, 255,0); 
+  }
+  .search-choice h4{
+    color:#7499F4; 
+    margin: auto 5px auto 0;
+  }
+  .search-choice img{
+    width: 24px; 
+    height:24px; 
+    margin: auto 20px auto 0;
+  }
 
 
 .user {
@@ -122,18 +164,26 @@ font-weight:bold;
 margin-right:30px;
 }
 
+
+.container{
+  display: flex;
+  flex-direction: column;
+justify-content: end;
+  align-items: center; 
+  height:90%;
+  }
+
 .center-bottom { 
-  width: 40%;
-  position: absolute; 
-  bottom: 100px;  
-  left: 710px; 
   font-size: 50px;
+}
+.arrow {
+  height: auto; /* 让高度按比例自动调整 */
+  margin-left: -50px;
 }
 
 .highlight {
   font-size: 60px;
 }
-
 
 .center {
   width: 30%;

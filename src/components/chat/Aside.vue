@@ -1,5 +1,5 @@
 <template>
-  <el-aside class="aside">
+  <el-aside class="aside" style="overflow: hidden;">
     <el-row class="newchat">
       <el-button class="newchat" type="primary" plain @click="createNewChat"
         >新建对话</el-button
@@ -20,11 +20,12 @@
           <template #title>
             <span>网页历史对话</span>
           </template>
-          <el-scrollbar max-height="60vh">
+          <el-scrollbar max-height="53vw" style="overflow: auto;">
             <!-- 渲染对话列表 -->
             <el-menu-item
               v-for="(dialogue, index) in dialoguesArray"
               :key="index"
+              :class="{ 'selected': dialogue.chatId === selectedChatId }"
             >
               <div class="menu-item-text" @click="selectChat(dialogue.chatId)">
                 {{ dialogue.chatName }}
@@ -98,8 +99,10 @@ const getAllDialogues = async () => {
   }
 };
 const emits = defineEmits(["select-chat", "message-updated"]);
+const selectedChatId = ref('')
 const selectChat = (chatId) => {
   // 这里可以调用获取对应聊天信息的方法
+  selectedChatId.value = chatId;
   getMessagesByChatId(chatId);
   // 向父组件发出事件
   emits("select-chat", chatId);

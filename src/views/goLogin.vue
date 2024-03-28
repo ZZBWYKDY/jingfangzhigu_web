@@ -48,13 +48,12 @@
       this.$router.push('/login');
     },
       async login() {
-        const response = await axiosPost(
+        const response = await axios.post(
           '/user/passwordLogin',
           {
             account: this.username,
             pwd: this.password,
           },
-          false,
           {
             withCredentials: true,
             headers: {
