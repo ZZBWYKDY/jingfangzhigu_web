@@ -768,9 +768,7 @@ MessageBox,
           inputMessage.value = ''; // 清空输入框
           showChatBox.value = true; // 显示聊天框
         }, 500);
-    } else {
-      console.log("目前没有发送新消息");
-    }
+    } 
   };
 
   const getMedicalHistory = async () => {
