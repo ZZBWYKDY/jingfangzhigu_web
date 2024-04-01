@@ -20,7 +20,7 @@
           <template #title>
             <span>网页历史对话</span>
           </template>
-          <el-scrollbar max-height="53vw" style="overflow: auto;">
+          <el-scrollbar max-height="39vw" style="overflow: auto;">
             <!-- 渲染对话列表 -->
             <el-menu-item
               v-for="(dialogue, index) in dialoguesArray"
