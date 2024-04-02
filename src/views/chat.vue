@@ -18,6 +18,7 @@ const selectChat = (chatId) => {
 };
 const newChatName = ref('');
 const handleUpdateChatName = (newChatNameValue, chatId) => {
+  console.error('--------------------------------')
   newChatName.value = newChatNameValue;
   console.log(newChatName,'newChatName');
 };

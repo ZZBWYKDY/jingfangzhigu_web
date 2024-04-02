@@ -229,7 +229,7 @@
                 </div>
               </div>
 
-              <div class="medical-btn-group">
+              <div style="margin-top:10px">
                 <el-button
                   type="danger"
                   @click="deletePic(jingfang)"
@@ -245,7 +245,7 @@
                   >保存</el-button
                 >
               </div>
-              <div class="flex flex-wrap items-center" v-if="msg.contentType == 'bingli'">
+              <div class="flex flex-wrap items-center" style="margin-top:10px" v-if="msg.contentType == 'bingli'">
     <el-dropdown>
       <el-button type="primary">
         药物推荐<el-icon class="el-icon--right"><arrow-down /></el-icon>
@@ -497,6 +497,7 @@ MessageBox,
     reactive,
     nextTick,
     defineProps,
+    defineEmits,
     toRaw,
     PropType,
     computed,
@@ -506,6 +507,7 @@ MessageBox,
   import { axiosPost, axiosGet, axiosDelete } from '@/utils/http';
   import marked from 'marked/marked.min.js';
   import { useRouter } from 'vue-router';
+  import { mapActions } from 'vuex';
   const router = useRouter();
   const canSendMessage = ref(true);
   const handleMenuClick = (path) => {
@@ -586,6 +588,8 @@ MessageBox,
         chatId.value = newVal; // 更新当前chatId
         subscribeToChat(); // 重新订阅新的chatId
         isFirstMessageInChat.value = true;
+        canSendMessage.value = true
+        isLoading.value = false
         console.log('props.chatFlag', props.chatFlag);
         if (props.chatFlag) {
           getMedicalByChat();
@@ -691,7 +695,7 @@ MessageBox,
           messageId: generateUUID(),
           roleId: 2,
         });
-      }
+      } 
 
       //2 通过chatId查询
       // getMedicalByChat();
@@ -712,7 +716,7 @@ MessageBox,
     });
   };
 
-  const emit = defineEmits(['update-chat-name']);
+  const emits = defineEmits(['update-chat-name']);
   const sendMessage = (activeTab) => {
     if(!canSendMessage.value || isLoading.value){
       ElMessage.error('回复消息正在生成')
@@ -726,12 +730,14 @@ MessageBox,
       const currentChatId = props.selectedChatId;
       chatId.value = currentChatId || generateUUID();
       if (
-        isFirstMessageInChat.value &&
-        (!props.messageArray || props.messageArray.length === 0)
+        isFirstMessageInChat.value 
+        && (!props.messageArray || props.messageArray.length === 0)
       ) {
-        messages.splice(0, messages.length); // 清空当前消息数组
+        // if(!props.messageArray || props.messageArray.length === 0){
+          messages.splice(0, messages.length); // 清空当前消息数组
+        // }
         isFirstMessageInChat.value = false;
-        emit('update-chat-name', inputMessage.value, chatId.value);
+        emits('update-chat-name', inputMessage.value, chatId.value);
         updateChatName(chatId.value, inputMessage.value);
       }
       const requestDataToSend = {
@@ -845,7 +851,7 @@ MessageBox,
   };
 
   const getMedicalByChat = async () => {
-    const chatId = 'fd3ef3f6-3b04-463e-a5a3-f91d626c0e71';
+    const chatId = '4a0d7070-8cd4-47c9-9aaa-eb8dab9c58a3';
     const response = await axiosGet(`/medicalHistory/jingfang/chat/${chatId}`);
     const { data, code } = response.data;
     console.log(data, code, '22222');

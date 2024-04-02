@@ -1,8 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
 import { ElMessage } from 'element-plus';
-import { setTimeout } from 'timers/promises';
-import { clearTimeout } from 'timers';
 // 引入配置文件
 // import baseConfig from '@/config/config.base';
 const isDev = process.env.NODE_ENV === 'development';
@@ -30,44 +28,6 @@ axiosX.interceptors.request.use(
     return Promise.reject(err);
   }
 );
-
-//防抖
-const debounceTokenCancel = new Map();
-axiosX.interceptors.request.use(config => {
-  const tokenKey = `${config.method}-${config.url}`;
-  const cancel = debounceTokenCancel.get(tokenKey);
-  if (cancel) {
-    cancel();
-  }
-  return new Promise(resolve => {
-    const timer = setTimeout(()=> {
-      clearTimeout(timer);
-      resolve(config);
-    },800);
-    debounceTokenCancel.set(tokenKey,()=> {
-      clearTimeout(timer);
-      resolve(new Error('取消请求'));
-    });
-  });
-},error=> {
-  console.log(error);
-  return Promise.reject(error);
-});
-
-//节流
-let lastTime = new Date().getTime();
-axiosX.interceptors.response.use(config=> {
-  const nowTime = new Date().getTime();
-  if (nowTime - lastTime < 1000) {
-    return Promise.reject(new Error('节流处理中，稍后再试'));
-  }
-  lastTime = nowTime;
-  return config;
-},error => {
-  console.log(error);
-  return Promise.reject(error);
-});
-
 
 // response 拦截
 axiosX.interceptors.response.use(
@@ -104,7 +64,6 @@ axiosX.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 
 /**
  * @param {string}  method   请求方法

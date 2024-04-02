@@ -31,6 +31,7 @@
                 {{ dialogue.chatName }}
               </div>
               <img
+                alt="删除"
                 src="@/assets/chat_pictures/delete.png"
                 style="display: inline-block; height: 18px; width: 18px"
                 @click.stop="deleteChat(dialogue.chatId)"
@@ -48,11 +49,13 @@ import {
   ref,
   getCurrentInstance,
   reactive,
+  watch,
   defineProps,
   defineEmits, computed,
 } from "vue";
 import { Search } from "@element-plus/icons-vue";
 import axios from "axios";
+import { axiosGet } from '@/utils/http';
 
 let token = ref("")
 computed(
@@ -60,7 +63,7 @@ computed(
       token = this.$store.state.token;
     }
 );
-
+const firstMessage = computed(() => store.state.firstInputMessage);
 
 const input2 = ref("");
 const instance = getCurrentInstance();
@@ -80,6 +83,16 @@ const newChatNameValue = ref("");
 const props = defineProps({
   newChatName: String,
 });
+
+
+watch(()=>props.newChatName,(newVal,oldVal)=>{
+  console.log('newValnewVal',newVal)
+  dialoguesArray.forEach(it=>{
+    if(it.chatId == selectedChatId.value){
+      it.chatName = newVal
+    }
+  })
+})
 
 // 获取所有对话
 const getAllDialogues = async () => {
@@ -111,13 +124,14 @@ const selectChat = (chatId) => {
 // 获取某一个 chatId 的所有消息
 const getMessagesByChatId = async (chatId) => {
   try {
-    const response = await axios.get(`/chat/${chatId}`, {
-      withCredentials: true,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Authorization: localStorage.getItem("token"),
-      },
-    });
+    const response = await axiosGet(`/chat/${chatId}`)
+    // axios.get(`/chat/${chatId}`, {
+    //   withCredentials: true,
+    //   headers: {
+    //     "Access-Control-Allow-Origin": "*",
+    //     Authorization: localStorage.getItem("token"),
+    //   },
+    // });
     let messageArray = response.data.data.chat.message;
     if (instance) {
       instance.emit("messages-updated", messageArray);
