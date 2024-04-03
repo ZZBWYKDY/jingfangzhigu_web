@@ -1,16 +1,6 @@
 import{ createRouter,createWebHashHistory } from "vue-router";
 
 const routes=[
-  {
-    path:"/header",
-    name:'header',//名字
-    component:()=>import('../components/common/header.vue')
-},
-    {
-        path:"/DataScouting",
-        name:'DataScouting',//名字
-        component:()=>import('../views/DataScouting.vue')
-    },
     {
         path:"/",
         redirect:"/welcome"
@@ -80,6 +70,34 @@ const routes=[
         component:() => import('../views/personal.vue'),
         meta: { requiresAuth: true }
       },
+      {
+        path:"/DataScouting",
+        name:'DataScouting',//名字
+        component:()=>import('../views/DataScouting.vue')
+    },
+    {
+      path:"/switchtab",
+      name:'switchtab',//名字
+      redirect: '/switchtab/underjkzswd',
+      component:()=>import('../components/chat/switchtab.vue'),
+      children:[
+        {
+          path:"/switchtab/underjkzswd",
+          name:'underjkzswd',//名字
+          component:()=>import('../components/chat/underjkzswd.vue')
+        },
+          {
+            path: '/switchtab/MediRush',
+            name: 'MediRush',
+            component: () => import('../components/chat/MediRush/MediRush.vue'),
+          },
+          {
+            path: '/switchtab/ViewQ&A',
+            name: 'ViewQ&A',
+            component: () => import('../components/chat/ViewQ&A/ViewQ&A.vue'),
+          },
+      ]
+  },
 ]
 
 const router = createRouter({

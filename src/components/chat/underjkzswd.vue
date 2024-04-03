@@ -1,28 +1,27 @@
 <template>
-    <el-main>
-          <el-row
-            class="main-header1"
-            id="main-header1"
-          >
+
+    <div class="scroll" style="height: 680px; overflow: hidden; overflow-y: scroll">
+        <el-row class="main" style="padding-bottom: 8px; margin-bottom: 20px">
+          <el-row class="main-header1" id="main-header1">
             <h1>经方智谷</h1>
-            <h4>—您的私人AI中医诊疗助手—</h4>
+            <h4>— 您的私人AI中医诊疗助手 —</h4>
           </el-row>
-  
+
           <!-- 中间部分内容 -->
           <el-row class="content" id="content">
             <el-row :gutter="40" class="custom-row">
               <el-col :xs="6" :sm="8" :md="10" :lg="12" :xl="14">
                 <div class="rectangle">
                   <h4>【我想知道】</h4>
-                  <p>药物属性是热是凉?这个生病能不能吃?</p>
+                  <p>药物属性是热是凉？这个生病能不能吃？</p>
                   <p>更多您想知道的，我们知无不言。</p>
                 </div>
               </el-col>
               <el-col :xs="6" :sm="8" :md="10" :lg="12" :xl="14">
                 <div class="rectangle">
                   <h4>【我要治病】</h4>
-                  <p>我发现今天头有点晕，我生了什么病吗?</p>
-                  <p>我突然开始咳嗽打喷嚏，我要吃什么药治疗?</p>
+                  <p>我发现今天头有点晕，我生了什么病吗？</p>
+                  <p>我突然开始咳嗽打喷嚏，我要吃什么药治疗？</p>
                 </div>
               </el-col>
             </el-row>
@@ -54,16 +53,17 @@
               >{{ button.text }}</el-button>
             </div>
           </el-row>
-    </el-main>
-  </template>
-  
-  <script setup lang="ts">
-  const Quebuttons = [
-    { text: '我最近头痛伴着流鼻涕,该吃什么药?' },
-    { text: '最近中医馆配的酸梅汤很火，请问可以当饮料喝吗？' },
-    { text: '胃肠炎可以吃柚子吗？' },
-  ] as const;
-  </script>
-  
-  <style src="@/components/chat/main.css"></style>
-  
+        </el-row>
+      </div>
+
+</template>
+
+<script setup lang="ts">
+const Quebuttons = [
+  { text: '我最近头痛伴着流鼻涕，该吃什么药？' },
+  { text: '最近中医馆配的酸梅汤很火，请问可以当饮料喝吗？' },
+  { text: '胃肠炎可以吃柚子吗？' },
+] as const;
+</script>
+
+<style src="@/components/chat/main.css"></style>
