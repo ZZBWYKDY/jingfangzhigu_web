@@ -3,8 +3,9 @@ import { createStore } from 'vuex';
 const store = createStore({
   state: {
     // 状态/数据
-    token: null
-    // firstInputMessage: '',
+    token: null,
+    inputmessage:'oooo',
+    isgenerate:false,
   },
   mutations: {
     // 同步方法，用于修改状态
@@ -12,22 +13,19 @@ const store = createStore({
     setToken(state, token){
         state.token = token
     },
-    // setFirstInputMessage(state, newValue) {
-    //   state.firstInputMessage = newValue;
-    // }
+    changeInput(state,msg){
+      state.inputmessage=msg
+    },
+    setIsgenerate(state){
+      state.isgenerate=true
+    },
+
   },
   actions: {
-    // updateFirstInputMessage({ commit, state }, newValue) {
-    //   // 只有当firstInputMessage为空时才更新，确保只保存第一条消息
-    //   if (!state.firstInputMessage) {
-    //     commit('setFirstInputMessage', newValue);
-    //   }
-    // }
     // 异步方法，用于触发 mutations
   },
   getters: {
     // 计算属性，用于获取状态
-    // getInputMessage: state => state.inputMessage;
   },
 });
 
