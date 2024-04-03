@@ -3,8 +3,8 @@ import { createStore } from 'vuex';
 const store = createStore({
   state: {
     // 状态/数据
-    token: null,
-    inputmessage:'oooo',
+    token: 'oo',
+    inputmessage:'lalalala88888888999',
     isgenerate:false,
   },
   mutations: {
