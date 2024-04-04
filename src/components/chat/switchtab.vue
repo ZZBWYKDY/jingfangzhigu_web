@@ -118,7 +118,7 @@
       <el-container class="leftandright">
         <Aside :dialogues="dialogues" @messages-updated="handleMessagesUpdated" @select-chat="selectChat" :newChatName="newChatName"/>
         <el-main class="main">
-          <div style="height: 705px;">
+          <div style="flex-grow: 1; ">
             <router-view></router-view>
           </div>
           <!-- 底部输入框 -->
