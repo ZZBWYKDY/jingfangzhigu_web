@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   // Vue 相关引入
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted,watch} from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from 'vuex';
 
@@ -26,7 +26,6 @@
   const router = useRouter();
 
   // 数据初始化
-  let activeName = 'first';
   const tabs = [
     {
       name: 'first',
@@ -71,17 +70,21 @@
   const canSendMessage = ref(true);
   const isLoading = ref(false);
   const inputMessage = ref('');
+  const activeName=ref('');
+
 
   // 监听语音识别
   onMounted(() => {
+    activeName.value = store.state.activeName;
     recognition.onresult = (event) => {
       inputMessage.value = event.results[0][0].transcript;
     };
   });
 
   // 处理菜单点击事件
-  const handleMenuClick = (path) => {
-    router.push(path);
+  const handleMenuClick = (tab) => {
+    store.commit('changeActiveName', tab.name);
+    router.push(tab.path);
   };
 
   // 处理录音开始/结束
@@ -107,6 +110,13 @@
       inputMessage.value = ''; 
     } 
   };
+
+  //其余方式切换tab
+
+watch(() => store.state.activeName, (newValue, oldValue) => {
+  const activeName=newValue
+    console.log('inputmessage 值已更改:', newValue);
+});
 </script>
 
 <template>
@@ -118,7 +128,8 @@
       <el-container class="leftandright">
         <Aside :dialogues="dialogues" @messages-updated="handleMessagesUpdated" @select-chat="selectChat" :newChatName="newChatName"/>
         <el-main class="main">
-          <div style="flex-grow: 1; ">
+
+          <div style="height:705px;overflow:hidden">
             <router-view></router-view>
           </div>
           <!-- 底部输入框 -->
@@ -126,7 +137,7 @@
             <el-tabs v-model="activeName" class="demo-tabs" :default-active="0">
               <el-tab-pane v-for="tab in tabs" :key="tab.name" :name="tab.name">
                 <template #label>
-                  <span class="custom-tabs-label" @click="handleMenuClick(tab.path)">
+                  <span class="custom-tabs-label" @click="handleMenuClick(tab)">
                     <el-icon><component :is="tab.icon"></component></el-icon>
                     <span>{{ tab.label }}</span>
                   </span>
@@ -147,4 +158,7 @@
   </el-container>
 </template>
 
-<style src="@/views/chat.css"></style>
+<style>
+@import "@/views/chat.css";
+@import "@/components/chat/main.css";
+</style>

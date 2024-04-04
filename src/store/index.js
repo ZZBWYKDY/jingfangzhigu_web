@@ -6,6 +6,7 @@ const store = createStore({
     token: 'oo',
     inputmessage:'lalalala88888888999',
     isgenerate:false,
+    activeName:'first'
   },
   mutations: {
     // 同步方法，用于修改状态
@@ -16,8 +17,14 @@ const store = createStore({
     changeInput(state,msg){
       state.inputmessage=msg
     },
+    changeActiveName(state,msg){
+      state.activeName=msg
+    },
     setIsgenerate(state){
       state.isgenerate=true
+    },
+    clearIsgenerate(state){
+      state.isgenerate=false
     },
 
   },

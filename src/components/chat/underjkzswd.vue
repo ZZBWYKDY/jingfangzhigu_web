@@ -1,6 +1,6 @@
 <template>
 
-    <div class="scroll" style=" overflow: auto;">
+    <div class="scroll" style="overflow: auto;height:705px;">
         <el-row class="main" style="padding-bottom: 8px; margin-bottom: 20px">
           <el-row class="main-header1" id="main-header1">
             <h1>经方智谷</h1>
