@@ -144,7 +144,7 @@ watch(num, (newValue, oldValue) => {
 .price{
   margin: 5px 0;
 display: flex;
-justify-content: end;
+justify-content: end !important;
 font-size: 18px;
 height: 40px;
 }
