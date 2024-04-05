@@ -33,15 +33,17 @@
          {{total}}
         </el-row>
         <el-row class="btn">
-          <el-button style=" background-color: rgb(118,189,179)">修改处方</el-button>
+          <el-button style=" background-color: rgb(118,189,179)" @click="isModify">修改处方</el-button>
           <el-button style=" background-color:rgb(104,154,251);">确认支付</el-button>
         </el-row>
 
   </div>
 </template>
 <script setup>
+import { useStore } from 'vuex';
 import { ref,computed,watch} from 'vue'
 import medicineList from './medicineList'
+const store = useStore();
 // 修改分数
 const num = ref(1)
 const handleChange = () => {
@@ -61,7 +63,9 @@ watch(num, (newValue, oldValue) => {
   console.log('num changed from', oldValue, 'to', newValue);
 });
 
-
+const isModify=()=>{
+  store.commit('MediRush/setismodify')
+}
 </script>
 <style scoped>
 .background-color {

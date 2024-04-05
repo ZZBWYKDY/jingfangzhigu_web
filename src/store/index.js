@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-
+import MediRush from './module/MediRush';
 const store = createStore({
   state: {
     // 状态/数据
@@ -28,6 +28,8 @@ const store = createStore({
       state.isgenerate=false
     },
 
+
+
   },
   actions: {
     // 异步方法，用于触发 mutations
@@ -35,6 +37,9 @@ const store = createStore({
   getters: {
     // 计算属性，用于获取状态
   },
+  modules:{
+    MediRush
+  }
 });
 
 export default store;

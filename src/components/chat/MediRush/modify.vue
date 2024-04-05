@@ -32,8 +32,8 @@
           </div>
         </el-scrollbar>
           <el-row class="btn">
-            <el-button style=" background-color: rgb(118,189,179)">取消编辑</el-button>
-            <el-button style=" background-color:rgb(104,154,251);">确认修改</el-button>
+            <el-button style=" background-color: rgb(118,189,179)"@click='goback'>取消编辑</el-button>
+            <el-button style=" background-color:rgb(104,154,251);"@click='goback'>确认修改</el-button>
           </el-row>
   
     </div>
@@ -41,6 +41,8 @@
   <script setup>
   import { ref,computed,watch} from 'vue'
   import medicineList from './medicineList'
+  import { useStore } from 'vuex';
+  const store = useStore();
   // 修改分数
   const num = ref(1)
   const handleChange = () => {
@@ -54,7 +56,10 @@
     console.log('num changed from', oldValue, 'to', newValue);
   });
   
-  
+  const goback=()=>{
+    store.commit('MediRush/clearismodify')
+  }
+
   </script>
   <style scoped>
   .container{

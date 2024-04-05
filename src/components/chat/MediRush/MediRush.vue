@@ -18,8 +18,8 @@
             <ingredientComponent></ingredientComponent>
           </div>
 
-          <payComponent v-if="false"</payComponent>
-            <modifyComponent v-if="false"></modifyComponent>
+          <payComponent v-if="false"></payComponent>
+          <modifyComponent v-if="$store.state.MediRush.ismodify"></modifyComponent>
 
         
         <div
@@ -49,7 +49,6 @@
           </div>
         </div>
       </div>
-      <!-- <a-spin :indicator="indicator" v-if="isLoading && messages.length > 0" /> -->
     </div>
   </template>
   
@@ -58,6 +57,8 @@
   import ingredientComponent from './ingredient.vue';
   import payComponent from './pay.vue';
   import modifyComponent from './modify.vue';
+  
+import { mapState } from 'vuex';
   export default {
     data() {
       return {
@@ -65,6 +66,9 @@
         messages: [], // 消息列表
         isLoading: false, // 是否正在加载消息
         indicator: {}, // 加载指示器
+
+        ismodify:false,
+        ispay:false,
       };
     },
     components: {
@@ -109,6 +113,12 @@
       this.$store.commit('clearIsgenerate');
 
     },
+    computed: {
+    ...mapState('MediRush',{
+      // 该组件中可以通过 this.user 访问到 Vuex 中的 user 状态
+      ismodify: state => state.ismodify,
+    })
+  }
   };
   </script>
   
