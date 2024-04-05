@@ -1,4 +1,5 @@
 <template>
+<div class="container">
     <div class="background-color bubble">
         <el-row class="ingredient line">
         确认支付
@@ -12,17 +13,31 @@
         </el-row>
 
     </div>
+</div>
 </template>
 
 <style scoped>
+.container{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 998;
+}
 .background-color {
-display: inline-block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 999;
 background-color: white;
 box-shadow: rgba(0,0,0,0.1) 0px 2px 4px ;
 padding: 15px 40px;
 margin: 5px;
 border-radius: 10px;
-height: 350px;
+/* height: 350px; */
 width: 400px; 
 max-width: 80%;
 text-align: left;

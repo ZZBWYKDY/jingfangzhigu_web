@@ -1,6 +1,27 @@
 <template>
+  
     <div class="scroll" style="height:705px;overflow: auto;"ref="chatContainer">
       <div v-if="showChatBox" class="chat-container" >
+
+        <div class="chat-box" :style="{ 'align-self':  'flex-start' }">
+            <div class="avatar" >
+              <img src="@/assets/chat_pictures/icon.png" style="width: 40px; height: 40px; border-radius: 50%;" />
+            </div>
+            <doucmentComponent></doucmentComponent>  
+          </div>
+
+          <div class="chat-box" :style="{ 'align-self':  'flex-start' }">
+            <div class="avatar" >
+              <img src="@/assets/chat_pictures/icon.png" style="width: 40px; height: 40px; border-radius: 50%;" />
+            </div>
+            
+            <ingredientComponent></ingredientComponent>
+          </div>
+
+          <payComponent v-if="false"</payComponent>
+            <modifyComponent v-if="false"></modifyComponent>
+
+        
         <div
           v-for="(msg, index) in messages"
           :key="index"
@@ -28,11 +49,15 @@
           </div>
         </div>
       </div>
-      <a-spin :indicator="indicator" v-if="isLoading && messages.length > 0" />
+      <!-- <a-spin :indicator="indicator" v-if="isLoading && messages.length > 0" /> -->
     </div>
   </template>
   
   <script>
+  import doucmentComponent from './document.vue';
+  import ingredientComponent from './ingredient.vue';
+  import payComponent from './pay.vue';
+  import modifyComponent from './modify.vue';
   export default {
     data() {
       return {
@@ -41,6 +66,12 @@
         isLoading: false, // 是否正在加载消息
         indicator: {}, // 加载指示器
       };
+    },
+    components: {
+    doucmentComponent,
+    ingredientComponent,
+    payComponent,
+    modifyComponent,
     },
     methods: {
       // 渲染消息内容
@@ -64,6 +95,7 @@
                 });
                 this.$nextTick(() => {
                 this.scrollToBottom(); // 在DOM更新后滚动到底部
+                this.$store.commit('clearIsgenerate')
             });
             },
             deep: true 
@@ -71,15 +103,11 @@
     },
     mounted() {
       // 模拟数据
-      this.messages = [
-        { roleId: 2, content: 'Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!', imgUrl: null }, 
-      ];
       this.$store.commit('changeActiveName', 'fifth');
       this.isLoading = true;
-      setTimeout(() => {
-        this.scrollToBottom(); // 在加载完成后滚动到底部
-        this.$store.commit('clearIsgenerate');
-      }, 2000); // 假设加载耗时2秒
+      this.scrollToBottom(); // 在加载完成后滚动到底部
+      this.$store.commit('clearIsgenerate');
+
     },
   };
   </script>

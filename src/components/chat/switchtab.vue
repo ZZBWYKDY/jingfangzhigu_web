@@ -105,7 +105,7 @@
       return false;
     }
     if (inputMessage.value.trim() !== '') {
-      isLoading.value = true;
+      store.commit('setIsgenerate');
       store.commit('changeInput', inputMessage.value.trim());
       inputMessage.value = ''; 
     } 
@@ -146,7 +146,7 @@ watch(() => store.state.activeName, (newValue, oldValue) => {
                   <el-input v-model="inputMessage" :rows="4" :resize="'none'" type="textarea" :autosize="false" placeholder="输入任何您想咨询的健康问题，我们即刻为您解答" @keyup.enter="sendMessage"/>
                   <div class="button2">
                     <el-button type="primary" :icon="Microphone" round @click="startRecording"/>
-                    <el-button type="primary" :icon="Position" @click="sendMessage" :loading="isLoading" round/>
+                    <el-button type="primary" :icon="Position" @click="sendMessage" :loading="store.state.isgenerate" round/>
                   </div>
                 </template>
               </el-tab-pane>
