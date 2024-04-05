@@ -6,7 +6,8 @@ const store = createStore({
     token: 'oo',
     inputmessage:'lalalala88888888999',
     isgenerate:false,
-    activeName:'first'
+    activeName:'first',
+    faceImgUrl:'',
   },
   mutations: {
     // 同步方法，用于修改状态
