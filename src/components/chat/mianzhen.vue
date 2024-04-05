@@ -212,7 +212,7 @@ watch(
 );
 
 watch(
-  () => store.state.faceImg,
+  () => store.state.faceImgUrl,
   (newVal, oldVal) => {
     if (newVal) {
       messages.push({
