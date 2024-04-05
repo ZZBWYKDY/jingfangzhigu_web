@@ -3,6 +3,7 @@
     <div class="background-color bubble">
         <el-row class="ingredient line">
         确认支付
+        <img src="./delete.png">
         </el-row>
         <el-row class="img-wrapper">
             <div class="img-background">
@@ -49,6 +50,7 @@ justify-content: center;
 font-size: 20px;
 font-weight:bold;
 color: rgb(104,154,251);
+position: relative;
 }
 .line{
     padding-bottom: 15px;
@@ -72,5 +74,13 @@ justify-content: center;
     padding: 15px;
     border-radius: 10px;
     box-shadow: rgba(0,0,0,0.3) 0px 2px 4px ;
+}
+.ingredient img{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: -28px;
+    top: -5px;
+    border-radius: 8px;
 }
 </style>
