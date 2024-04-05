@@ -1,5 +1,5 @@
 <template>
-  <el-aside class="aside" style="overflow: hidden;">
+  <el-aside class="aside" style="overflow: hidden">
     <el-row class="newchat">
       <el-button class="newchat" type="primary" plain @click="createNewChat"
         >新建对话</el-button
@@ -20,12 +20,12 @@
           <template #title>
             <span>网页历史对话</span>
           </template>
-          <el-scrollbar max-height="39vw" style="overflow: auto;">
+          <el-scrollbar max-height="39vw" style="overflow: auto">
             <!-- 渲染对话列表 -->
             <el-menu-item
               v-for="(dialogue, index) in dialoguesArray"
               :key="index"
-              :class="{ 'selected': dialogue.chatId === selectedChatId }"
+              :class="{ selected: dialogue.chatId === selectedChatId }"
             >
               <div class="menu-item-text" @click="selectChat(dialogue.chatId)">
                 {{ dialogue.chatName }}
@@ -51,18 +51,19 @@ import {
   reactive,
   watch,
   defineProps,
-  defineEmits, computed,
+  defineEmits,
+  computed,
 } from "vue";
 import { Search } from "@element-plus/icons-vue";
 import axios from "axios";
-import { axiosGet } from '@/utils/http';
+import { axiosGet } from "@/utils/http";
+import { useStore } from "vuex";
 
-let token = ref("")
-computed(
-    () => {
-      token = this.$store.state.token;
-    }
-);
+const store = useStore();
+let token = ref("");
+computed(() => {
+  token = this.$store.state.token;
+});
 const firstMessage = computed(() => store.state.firstInputMessage);
 
 const input2 = ref("");
@@ -84,15 +85,17 @@ const props = defineProps({
   newChatName: String,
 });
 
-
-watch(()=>props.newChatName,(newVal,oldVal)=>{
-  console.log('newValnewVal',newVal)
-  dialoguesArray.forEach(it=>{
-    if(it.chatId == selectedChatId.value){
-      it.chatName = newVal
-    }
-  })
-})
+watch(
+  () => props.newChatName,
+  (newVal, oldVal) => {
+    console.log("newValnewVal", newVal);
+    dialoguesArray.forEach((it) => {
+      if (it.chatId == selectedChatId.value) {
+        it.chatName = newVal;
+      }
+    });
+  }
+);
 
 // 获取所有对话
 const getAllDialogues = async () => {
@@ -112,7 +115,7 @@ const getAllDialogues = async () => {
   }
 };
 const emits = defineEmits(["select-chat", "message-updated"]);
-const selectedChatId = ref('')
+const selectedChatId = ref("");
 const selectChat = (chatId) => {
   // 这里可以调用获取对应聊天信息的方法
   selectedChatId.value = chatId;
@@ -124,7 +127,7 @@ const selectChat = (chatId) => {
 // 获取某一个 chatId 的所有消息
 const getMessagesByChatId = async (chatId) => {
   try {
-    const response = await axiosGet(`/chat/${chatId}`)
+    const response = await axiosGet(`/chat/${chatId}`);
     // axios.get(`/chat/${chatId}`, {
     //   withCredentials: true,
     //   headers: {
@@ -134,6 +137,7 @@ const getMessagesByChatId = async (chatId) => {
     // });
     let messageArray = response.data.data.chat.message;
     if (instance) {
+      store.commit("setAllMessages", messageArray);
       instance.emit("messages-updated", messageArray);
     }
   } catch (error) {

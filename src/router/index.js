@@ -92,6 +92,11 @@ const routes=[
             component: () => import('../components/chat/MediRush/MediRush.vue'),
           },
           {
+            path: '/switchtab/face',
+            name: 'face',
+            component: () => import('../components/chat/mianzhen.vue'),
+          },
+          {
             path: '/switchtab/ViewQ&A',
             name: 'ViewQ&A',
             component: () => import('../components/chat/ViewQ&A/ViewQ&A.vue'),
