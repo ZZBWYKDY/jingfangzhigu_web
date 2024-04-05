@@ -1,5 +1,5 @@
-import { createStore } from "vuex";
-
+import { createStore } from 'vuex';
+import MediRush from './module/MediRush';
 const store = createStore({
   state: {
     // 状态/数据
@@ -8,7 +8,7 @@ const store = createStore({
     isgenerate: false,
     activeName: "first",
     allMessages: [],
-    faceImg: "",
+    faceImgUrl: "",
     canSendMessage: true,
     isLoading: false,
   },
@@ -34,7 +34,7 @@ const store = createStore({
       state.allMessages = messages;
     },
     setFaceImg(state, img) {
-      state.faceImg = img;
+      state.faceImgUrl = img;
     },
     setCanSendMessage(state, flag) {
       state.canSendMessage = flag;
@@ -58,6 +58,9 @@ const store = createStore({
       return state.isLoading;
     },
   },
+  modules:{
+    MediRush
+  }
 });
 
 export default store;

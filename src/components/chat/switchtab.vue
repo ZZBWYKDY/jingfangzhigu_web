@@ -107,6 +107,7 @@ const sendMessage = () => {
   }
   if (inputMessage.value.trim() !== "") {
     isLoading.value = true;
+    store.commit('setIsgenerate');
     store.commit("changeInput", inputMessage.value.trim());
     inputMessage.value = "";
   }

@@ -1,7 +1,11 @@
 <template>
+<div class="container">
     <div class="background-color bubble">
         <el-row class="ingredient line">
         确认支付
+        <div @click="goback">
+    <img  src="./delete.png"></div>
+        
         </el-row>
         <el-row class="img-wrapper">
             <div class="img-background">
@@ -12,17 +16,40 @@
         </el-row>
 
     </div>
+</div>
 </template>
+<script setup>
+
+  import { useStore } from 'vuex';
+  const store = useStore();
+  const goback=()=>{
+    store.commit('MediRush/clearispay')
+    console.log('触发成功')
+  }
+</script>
 
 <style scoped>
+.container{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 998;
+}
 .background-color {
-display: inline-block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 999;
 background-color: white;
 box-shadow: rgba(0,0,0,0.1) 0px 2px 4px ;
 padding: 15px 40px;
 margin: 5px;
 border-radius: 10px;
-height: 350px;
+/* height: 350px; */
 width: 400px; 
 max-width: 80%;
 text-align: left;
@@ -34,6 +61,7 @@ justify-content: center;
 font-size: 20px;
 font-weight:bold;
 color: rgb(104,154,251);
+position: relative;
 }
 .line{
     padding-bottom: 15px;
@@ -57,5 +85,13 @@ justify-content: center;
     padding: 15px;
     border-radius: 10px;
     box-shadow: rgba(0,0,0,0.3) 0px 2px 4px ;
+}
+.ingredient img{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    right: -28px;
+    top: -5px;
+    border-radius: 8px;
 }
 </style>

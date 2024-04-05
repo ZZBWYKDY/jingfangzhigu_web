@@ -1,6 +1,27 @@
 <template>
+  
     <div class="scroll" style="height:705px;overflow: auto;"ref="chatContainer">
       <div v-if="showChatBox" class="chat-container" >
+
+        <div v-if="flag" class="chat-box" :style="{ 'align-self':  'flex-start' }">
+            <div class="avatar" >
+              <img src="@/assets/chat_pictures/icon.png" style="width: 40px; height: 40px; border-radius: 50%;" />
+            </div>
+            <doucmentComponent></doucmentComponent>  
+          </div>
+
+          <div v-if="!flag" class="chat-box" :style="{ 'align-self':  'flex-start' }">
+            <div class="avatar" >
+              <img src="@/assets/chat_pictures/icon.png" style="width: 40px; height: 40px; border-radius: 50%;" />
+            </div>
+            
+            <ingredientComponent></ingredientComponent>
+          </div>
+
+          <payComponent v-if="$store.state.MediRush.ispay"></payComponent>
+          <modifyComponent v-if="$store.state.MediRush.ismodify"></modifyComponent>
+
+        
         <div
           v-for="(msg, index) in messages"
           :key="index"
@@ -28,11 +49,16 @@
           </div>
         </div>
       </div>
-      <a-spin :indicator="indicator" v-if="isLoading && messages.length > 0" />
     </div>
   </template>
   
   <script>
+  import doucmentComponent from './document.vue';
+  import ingredientComponent from './ingredient.vue';
+  import payComponent from './pay.vue';
+  import modifyComponent from './modify.vue';
+  
+import { mapState } from 'vuex';
   export default {
     data() {
       return {
@@ -40,7 +66,16 @@
         messages: [], // 消息列表
         isLoading: false, // 是否正在加载消息
         indicator: {}, // 加载指示器
+        flag:true,
+        ismodify:false,
+        ispay:false,
       };
+    },
+    components: {
+    doucmentComponent,
+    ingredientComponent,
+    payComponent,
+    modifyComponent,
     },
     methods: {
       // 渲染消息内容
@@ -64,6 +99,8 @@
                 });
                 this.$nextTick(() => {
                 this.scrollToBottom(); // 在DOM更新后滚动到底部
+                this.$store.commit('clearIsgenerate')
+                this.flag=false
             });
             },
             deep: true 
@@ -71,30 +108,18 @@
     },
     mounted() {
       // 模拟数据
-      this.messages = [
-        { roleId: 1, content: 'Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!', imgUrl: null }, // 用户消息
-        { roleId: 2, content: 'Hi there!Hi there!Hi there!HHi there!Hi there!Hi there!HHi there!Hi there!Hi there!HHi there!Hi there!Hi there!HHi there!Hi there!Hi there!Hi there!Hi there!Hi there!Hi there!Hi there!', imgUrl: null }, // 助手消息
-        { roleId: 1, content: 'Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!', imgUrl: null }, // 用户消息
-        { roleId: 2, content: 'Hi there!', imgUrl: null }, // 助手消息
-        { roleId: 1, content: 'Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!', imgUrl: null }, // 用户消息
-        { roleId: 2, content: 'Hi there!', imgUrl: null }, // 助手消息
-        { roleId: 1, content: 'Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!', imgUrl: null }, // 用户消息
-        { roleId: 2, content: 'Hi there!', imgUrl: null }, // 助手消息
-        { roleId: 1, content: 'Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!', imgUrl: null }, // 用户消息
-        { roleId: 2, content: 'Hi there!', imgUrl: null }, // 助手消息
-        { roleId: 1, content: 'Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!', imgUrl: null }, // 用户消息
-        { roleId: 2, content: 'Hi there!', imgUrl: null }, // 助手消息
-        { roleId: 1, content: 'Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!', imgUrl: null }, // 用户消息
-        { roleId: 2, content: 'Hi there!', imgUrl: null }, // 助手消息
-        // 可以继续添加更多的模拟消息
-      ];
       this.$store.commit('changeActiveName', 'fifth');
       this.isLoading = true;
-      setTimeout(() => {
-        this.scrollToBottom(); // 在加载完成后滚动到底部
-        this.$store.commit('clearIsgenerate');
-      }, 2000); // 假设加载耗时2秒
+      this.scrollToBottom(); // 在加载完成后滚动到底部
+      this.$store.commit('clearIsgenerate');
+
     },
+    computed: {
+    ...mapState('MediRush',{
+      // 该组件中可以通过 this.user 访问到 Vuex 中的 user 状态
+      ismodify: state => state.ismodify,
+    })
+  }
   };
   </script>
   
