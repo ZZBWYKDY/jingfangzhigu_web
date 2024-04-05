@@ -11,6 +11,13 @@ const mutations= {
       state.ismodify=false
     },
 
+    setispay(state){
+        state.ispay=true
+      },
+      clearispay(state){
+        state.ispay=false
+      },
+
   }
 const  actions= {
     // 异步方法，用于触发 mutations

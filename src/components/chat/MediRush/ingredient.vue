@@ -34,7 +34,7 @@
         </el-row>
         <el-row class="btn">
           <el-button style=" background-color: rgb(118,189,179)" @click="isModify">修改处方</el-button>
-          <el-button style=" background-color:rgb(104,154,251);">确认支付</el-button>
+          <el-button style=" background-color:rgb(104,154,251);" @click="isPay">确认支付</el-button>
         </el-row>
 
   </div>
@@ -65,6 +65,9 @@ watch(num, (newValue, oldValue) => {
 
 const isModify=()=>{
   store.commit('MediRush/setismodify')
+}
+const isPay=()=>{
+  store.commit('MediRush/setispay')
 }
 </script>
 <style scoped>

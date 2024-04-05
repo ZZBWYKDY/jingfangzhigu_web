@@ -3,7 +3,9 @@
     <div class="background-color bubble">
         <el-row class="ingredient line">
         确认支付
-        <img src="./delete.png">
+        <div @click="goback">
+    <img  src="./delete.png"></div>
+        
         </el-row>
         <el-row class="img-wrapper">
             <div class="img-background">
@@ -16,6 +18,15 @@
     </div>
 </div>
 </template>
+<script setup>
+
+  import { useStore } from 'vuex';
+  const store = useStore();
+  const goback=()=>{
+    store.commit('MediRush/clearispay')
+    console.log('触发成功')
+  }
+</script>
 
 <style scoped>
 .container{

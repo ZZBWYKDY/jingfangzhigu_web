@@ -3,14 +3,14 @@
     <div class="scroll" style="height:705px;overflow: auto;"ref="chatContainer">
       <div v-if="showChatBox" class="chat-container" >
 
-        <div class="chat-box" :style="{ 'align-self':  'flex-start' }">
+        <div v-if="flag" class="chat-box" :style="{ 'align-self':  'flex-start' }">
             <div class="avatar" >
               <img src="@/assets/chat_pictures/icon.png" style="width: 40px; height: 40px; border-radius: 50%;" />
             </div>
             <doucmentComponent></doucmentComponent>  
           </div>
 
-          <div class="chat-box" :style="{ 'align-self':  'flex-start' }">
+          <div v-if="!flag" class="chat-box" :style="{ 'align-self':  'flex-start' }">
             <div class="avatar" >
               <img src="@/assets/chat_pictures/icon.png" style="width: 40px; height: 40px; border-radius: 50%;" />
             </div>
@@ -18,7 +18,7 @@
             <ingredientComponent></ingredientComponent>
           </div>
 
-          <payComponent v-if="false"></payComponent>
+          <payComponent v-if="$store.state.MediRush.ispay"></payComponent>
           <modifyComponent v-if="$store.state.MediRush.ismodify"></modifyComponent>
 
         
@@ -66,7 +66,7 @@ import { mapState } from 'vuex';
         messages: [], // 消息列表
         isLoading: false, // 是否正在加载消息
         indicator: {}, // 加载指示器
-
+        flag:true,
         ismodify:false,
         ispay:false,
       };
@@ -100,6 +100,7 @@ import { mapState } from 'vuex';
                 this.$nextTick(() => {
                 this.scrollToBottom(); // 在DOM更新后滚动到底部
                 this.$store.commit('clearIsgenerate')
+                this.flag=false
             });
             },
             deep: true 
