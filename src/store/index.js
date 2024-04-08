@@ -11,6 +11,7 @@ const store = createStore({
     faceImgUrl: "",
     canSendMessage: true,
     isLoading: false,
+    userImg:localStorage.getItem("headimg"),
   },
   mutations: {
     // 同步方法，用于修改状态

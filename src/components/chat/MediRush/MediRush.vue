@@ -44,7 +44,7 @@
               </template>
             </div>
             <div class="avatar" v-if="msg.roleId === 1">
-              <img src="@/assets/chat_pictures/icon.png" style="width: 40px; height: 40px; border-radius: 50%;"  />
+             <img :src="$store.state.userImg" style="width: 40px; height: 40px; border-radius: 50%;"  />
             </div>
           </div>
         </div>
@@ -89,6 +89,12 @@ import { mapState } from 'vuex';
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
       },
+      saveData() {
+          localStorage.setItem('MediRushMessage', this.message);
+        },
+      loadData() {
+        this.loadedData = localStorage.getItem('MediRushMessage');
+      }
     },
     watch: {
         '$store.state.inputmessage': {
@@ -106,6 +112,13 @@ import { mapState } from 'vuex';
             deep: true 
         }
     },
+    created() {
+      // 加载数据
+      this.loadData();
+      // 在页面刷新或关闭之前保存数据到localStorage
+      window.addEventListener('beforeunload', this.saveData);
+    },
+
     mounted() {
       // 模拟数据
       this.$store.commit('changeActiveName', 'fifth');
@@ -113,6 +126,10 @@ import { mapState } from 'vuex';
       this.scrollToBottom(); // 在加载完成后滚动到底部
       this.$store.commit('clearIsgenerate');
 
+    },
+    destroyed() {
+        // 在组件销毁之前移除事件监听
+        window.removeEventListener('beforeunload', this.saveData);
     },
     computed: {
     ...mapState('MediRush',{
