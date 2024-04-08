@@ -46,7 +46,7 @@
                 padding: 10px;
               "
             >
-              <img width="200px" :src="msg.imgUrl" />
+              <img width="200px" :src="msg.imgUrl"  @load="imageLoaded"/>
             </div>
             <div
               v-else
@@ -61,7 +61,7 @@
             </div>
             <div class="avatar">
               <img
-                src="@/assets/chat_pictures/icon.png"
+              :src="$store.state.userImg"
                 alt="User Avatar"
                 style="width: 40px; height: 40px; border-radius: 50%"
               />
@@ -228,14 +228,14 @@ watch(
         imgUrl: newVal,
         messageId: generateUUID(),
         roleId: 1,
-      }); // 将用户输入的消息添加到本地消息数组
-      // let imgUrl = response.data.data['url'];
-      // inputMessage.value = imgUrl;
+      }); 
       getFaceByImage(newVal);
     }
   }
 );
-
+function imageLoaded(){
+  scrollToBottom(); 
+}
 watch(
   () => activeName.value,
   (newVal, oldVal) => {
@@ -528,6 +528,7 @@ watch(
 );
 
 const getFaceByImage = (url) => {
+  scrollToBottom(); // 现在滚动到底部
   isLoading.value = true;
   store.commit("setIsLoading", true);
   // url =
