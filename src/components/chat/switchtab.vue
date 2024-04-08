@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 // Vue 相关引入
 import { ref, onMounted, watch,computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 // 组件引入
@@ -26,6 +26,7 @@ import { axiosPost } from '@/utils/http';
 
 // 路由初始化
 const router = useRouter();
+const route = useRoute()
 
 // 数据初始化
 const tabs = [
@@ -76,11 +77,15 @@ const activeName = ref("");
 
 // 监听语音识别
 onMounted(() => {
-  activeName.value = store.state.activeName;
+  activeName.value = getActiveNameByPath(route.path);
   recognition.onresult = (event) => {
     inputMessage.value = event.results[0][0].transcript;
   };
 });
+
+const getActiveNameByPath = (path)=>{
+  return tabs.filter(it=>it.path == path)[0].name
+}
 
 // 处理菜单点击事件
 const handleMenuClick = (tab) => {

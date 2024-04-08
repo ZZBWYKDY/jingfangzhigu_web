@@ -25,6 +25,7 @@
             justify-content: flex-end;
             margin-bottom: 10px;
             margin-left: auto;
+            
           "
         >
           <!-- 用户消息 -->
@@ -33,7 +34,7 @@
             style="
               display: flex;
               justify-content: flex-end;
-              align-items: center;
+              align-items: normal;
             "
           >
             <div
@@ -89,7 +90,12 @@
             <div class="avatar" style="align-self: flex-start">
               <img
                 src="@/assets/chat_pictures/icon.png"
-                style="width: 40px; height: 40px; border-radius: 50%"
+                style="
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  max-width: 50vw;
+                "
               />
             </div>
 
@@ -373,23 +379,25 @@ const subscribeToChat = () => {
 };
 
 const emits = defineEmits(["update-chat-name"]);
-const sendMessage = (activeTab) => {
+const sendMessage = (inputVal) => {
   if (!canSendMessage.value || isLoading.value) {
     ElMessage.error("回复消息正在生成");
     return false;
   }
-  if ((inputMessage.value.trim() !== "" && store.state.allMessages) || activeTab) {
+  if (
+    (inputVal.trim() !== "" && store.state.allMessages)
+  ) {
     const currentChatId = props.selectedChatId;
     chatId.value = currentChatId || generateUUID();
-    if (
-      isFirstMessageInChat.value &&
-      (!store.state.allMessages || store.state.allMessages.length === 0)
-    ) {
-      messages.splice(0, messages.length); // 清空当前消息数组
-      isFirstMessageInChat.value = false;
-      emits("update-chat-name", inputMessage.value, chatId.value);
-      updateChatName(chatId.value, inputMessage.value);
-    }
+    // if (
+    //   isFirstMessageInChat.value &&
+    //   (!store.state.allMessages || store.state.allMessages.length === 0)
+    // ) {
+    //   // messages.splice(0, messages.length); // 清空当前消息数组
+    //   // isFirstMessageInChat.value = false;
+    //   // emits("update-chat-name", inputMessage.value, chatId.value);
+    //   // updateChatName(chatId.value, inputMessage.value);
+    // }
     const requestDataToSend = {
       messageId: generateUUID(),
       text: inputMessage.value,
@@ -397,8 +405,14 @@ const sendMessage = (activeTab) => {
     };
     setTimeout(() => {
       fetchResponse(requestDataToSend);
-      // 发送消息后触发事件，将第一条消息内容作为参数传递
-      messages.splice(0, messages.length); // 清空当前消息数组
+      // messages.splice(0, messages.length); // 清空当前消息数组
+      messages.push({
+        chatId: currentChatId,
+        content: inputVal,
+        createTime: "",
+        messageId: generateUUID(),
+        roleId: 1,
+      });
       messages.push({
         chatId: currentChatId,
         content: "请直接在输入框右侧上传面部图片",
@@ -406,7 +420,6 @@ const sendMessage = (activeTab) => {
         messageId: generateUUID(),
         roleId: 2,
       });
-      inputMessage.value = ""; // 清空输入框
     }, 500);
   }
 };
@@ -491,6 +504,13 @@ const scrollToBottom = () => {
 };
 // 监听消息数组的变化，自动滚动到底部
 onMounted(() => {
+  messages.push({
+    chatId: props.selectedChatId,
+    content: "请直接在输入框右侧上传面部图片",
+    createTime: "",
+    messageId: generateUUID(),
+    roleId: 2,
+  });
   scrollToBottom();
 });
 

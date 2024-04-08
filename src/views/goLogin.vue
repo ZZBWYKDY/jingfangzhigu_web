@@ -67,7 +67,7 @@
           localStorage.setItem('token', response.data.data.token);
           this.$store.commit('setToken', response.data.data.token);
           console.log(response);
-          this.$router.push('/chat');
+          this.$router.push('/switchtab');
         } else {
           // 登录失败，弹出提示框
           // this.error = '登录失败，请重试';

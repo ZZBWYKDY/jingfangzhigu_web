@@ -218,7 +218,8 @@ min-height: 36px;
     padding: 10px 15px;
     margin: 5px;
     border-radius: 10px;
-    max-width: 80%;
+    max-width: 50vw;
+    /* min-width: 300px; */
     text-align: left;
     vertical-align: top; /* 顶部对齐，确保头像和聊天气泡顶部对齐 */
 }
