@@ -530,8 +530,8 @@ watch(
 const getFaceByImage = (url) => {
   isLoading.value = true;
   store.commit("setIsLoading", true);
-  url =
-    "https://jingfang-images-1322234581.cos.ap-beijing.myqcloud.com/faces%2F1710841951364tz.png";
+  // url =
+  //   "https://jingfang-images-1322234581.cos.ap-beijing.myqcloud.com/faces%2F1710841951364tz.png";
   axiosPost(`/face/diagnosis?img=${url}`).then((response) => {
     console.log(
       "response.data.faceDiagnosis",

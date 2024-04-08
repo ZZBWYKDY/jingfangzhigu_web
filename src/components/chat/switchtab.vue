@@ -181,7 +181,6 @@ watch(
                       v-if="tab.name == 'third'"
                       class="upload-demo"
                       :action="'/api/file/faceImg'"
-                      :limit="1"
                       :accept="'image/*'"
                       :show-file-list="false"
                       :http-request="uploadImage"
