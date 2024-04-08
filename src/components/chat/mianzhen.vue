@@ -528,7 +528,6 @@ watch(
 );
 
 const getFaceByImage = (url) => {
-  scrollToBottom(); // 现在滚动到底部
   isLoading.value = true;
   store.commit("setIsLoading", true);
   // url =

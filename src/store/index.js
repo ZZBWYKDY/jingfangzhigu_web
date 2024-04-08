@@ -11,7 +11,7 @@ const store = createStore({
     faceImgUrl: "",
     canSendMessage: true,
     isLoading: false,
-    userImg:localStorage.getItem("headimg"),
+    userImg:localStorage.getItem('headimg') || 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
   },
   mutations: {
     // 同步方法，用于修改状态
