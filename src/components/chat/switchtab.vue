@@ -7,6 +7,7 @@ import { useStore } from "vuex";
 // 组件引入
 import Aside from "@/components/chat/Aside.vue";
 import Header from "@/components/common/header.vue";
+import healthQA from "./healthQA.vue";
 
 // Element Plus 组件引入
 import { ElMessage } from "element-plus";

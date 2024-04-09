@@ -1,8 +1,6 @@
 <template>
     <el-main class="main">
       <div class="scroll" style="height: 705px; overflow: hidden; overflow-y: scroll">
-        </div>
-  
         <!-- 聊天框 -->
         <div
           v-if="showChatBox"
@@ -56,36 +54,34 @@
               </div>
             </div>
         </div>
+        </div>
       </div>
-
     </el-main>
   </template>
   
   <style src="@/components/chat/main.css"></style>
   
   <script setup lang="ts">
-  import { Position, Microphone } from '@element-plus/icons-vue';
-  import { Monitor } from '@element-plus/icons-vue';
   import { LoadingOutlined } from '@ant-design/icons-vue';
-  import type { TabsPaneContext } from 'element-plus';
   import {  ElMessage } from 'element-plus';
   import { ref,  onMounted, watch,  onUnmounted, reactive, nextTick,  defineProps,
     defineEmits, toRaw,  PropType, computed,} from 'vue';
   import axios from 'axios';
-  import html2canvas from 'html2canvas';
   import { axiosPost, axiosGet, axiosDelete } from '@/utils/http';
   import marked from 'marked/marked.min.js';
-  import { useRouter } from 'vue-router';
-  import { mapState } from 'vuex';
-  const router = useRouter();
-  const canSendMessage = ref(true);
+  import {useStore} from 'vuex';
+  const inputMessage = ref('');
+  const isLoading = ref();
+  const showChatBox = ref(false); // 控制是否展示对话框部分的状态
 
- 
-  computed: {
-    ...mapState({
-      inputMessage: state => state.inputmessage
-    })
-  }
+  const canSendMessage = ref(true);
+  const store = useStore();
+
+  watch(() => store.state.inputmessage, (newValue, oldValue) => {
+      inputMessage.value = newValue
+      console.log('inputmessage 值已更改1111:', newValue);
+  });
+  
   
   const renderMessage = (content) => {
     if (!content) {
@@ -110,36 +106,47 @@
     selectedChatId: String,
     chatFlag: Boolean,
   });
-  
-//   watch(
-//     () => activeName.value,
-//     (newVal, oldVal) => {
-//       if (newVal !== oldVal && newVal) {
-//         showChatBox.value = true;
-//         isFirstMessageInChat.value = true;
-//         sendMessage(newVal); // 重新订阅新的chatId
-//       } else {
-//         showChatBox.value = false;
-//       }
-//     }
-//   );
-  
+
   watch(
-    () => props.messageArray,
+    () => store.state.activeName,
     (newVal, oldVal) => {
-      if (newVal && newVal.length > 0) {
-        filterMessages();
-        chatId.value = props.selectedChatId as string;
-        showChatBox.value = true;
+      console.log("activeName.value", newVal);
+      if (newVal !== oldVal && newVal) {
+        isFirstMessageInChat.value = true;
+        
       } else {
-        showChatBox.value = false;
       }
     }
   );
   
   watch(
-    () => props.selectedChatId,
+    () => store.state.allMessages,
     (newVal, oldVal) => {
+      if (newVal && newVal.length > 0) {
+        filterMessages();
+        // inputMessage.value = newVal;
+        // sendMessage(newVal); // 重新订阅新的chatId
+        chatId.value = store.state.chatId
+        isFirstMessageInChat.value = false;
+      } else {
+        isFirstMessageInChat.value = true;
+      }
+    }
+  );
+  watch(
+    () => store.state.inputmessage,
+    (newVal, oldVal) => {
+      if(newVal) {
+        inputMessage.value = newVal;
+        sendMessage(store.state.activeName, newVal);
+      }
+    }
+  )
+  watch(
+    () => store.state.chatId,
+    (newVal, oldVal) => {
+      console.log('222222222222');
+      
       if (newVal !== oldVal && newVal) {
         chatId.value = newVal; // 更新当前chatId
         subscribeToChat(); // 重新订阅新的chatId
@@ -152,7 +159,7 @@
   
   function filterMessages() {
     messages.splice(0, messages.length);
-    let rawMessageArray: any = toRaw(props.messageArray);
+    let rawMessageArray: any =  toRaw(store.state.allMessages);
     if (Array.isArray(rawMessageArray)) {
       rawMessageArray.forEach((item) => {
         // 确保item的属性
@@ -169,14 +176,11 @@
     }
   }
   
-  const inputMessage = ref('');
-  const isLoading = ref();
-  const showChatBox = ref(false); // 控制是否展示对话框部分的状态
 
   // 订阅请求
   let messageContent = ref('');
   let currentEventSource: EventSource | null = null;
-  const medicineText = `111111`;
+
   const subscribeToChat = () => {
     // 如果已经有一个订阅，先关闭它
     if (currentEventSource) {
@@ -192,11 +196,6 @@
       let data = JSON.parse(event.data);
       if (data['data'] && data['data']['delta']) {
         messageContent.value += data['data']['delta'];
-      }
-      if (data['data']['flag']) {
-        let flag = data['data']['flag'];
-        if (flag) {
-        }
       }
     });
   
@@ -214,7 +213,7 @@
       //1 通过finalDiagnosis判断
       if (endData.data.finalDiagnosis) {
         messages.push({
-          chatId: props.selectedChatId as string,
+          chatId: store.state.chatId,
           content: '',
           createTime: '',
           messageId: generateUUID(),
@@ -224,7 +223,6 @@
   
       //2 通过chatId查询
       // getMedicalByChat();
-  
       if (messageContent.value) {
         let length = messages.length - 1;
         messages[length].content = endData['data']['totalMessage'];
@@ -242,35 +240,34 @@
   };
   
   const emits = defineEmits(['update-chat-name']);
-  const sendMessage = (activeTab) => {
+  const sendMessage = (activeTab,inputMessage) => {
     if (!canSendMessage.value || isLoading.value) {
       ElMessage.error('回复消息正在生成');
       return false;
     }
-    if (( inputMessage.trim() !== '' && props.messageArray) || activeTab) {
-      const currentChatId = props.selectedChatId;
+    if (( inputMessage.trim() !== '' && store.state.allMessages) || activeTab) {
+      const currentChatId = store.state.chatId;
       chatId.value = currentChatId || generateUUID();
-      if (isFirstMessageInChat.value && (!props.messageArray || props.messageArray.length === 0)) {
-        // if(!props.messageArray || props.messageArray.length === 0){
+      if (isFirstMessageInChat.value && (!store.state.allMessages || store.state.allMessages.length === 0)) {
         messages.splice(0, messages.length); // 清空当前消息数组
-        // }
         isFirstMessageInChat.value = false;
-        emits('update-chat-name', inputMessage.value, chatId.value);
-        updateChatName(chatId.value, inputMessage.value);
+        // emits('update-chat-name', inputMessage.value, chatId.value);
+        // updateChatName(chatId.value, inputMessage.value);
       }
       const requestDataToSend = {
         messageId: generateUUID(),
-        text: inputMessage.value,
+        text: inputMessage,
         messages: toRaw([...messages]),
       };
       activeTab != 'third' && subscribeToChat();
+    
       setTimeout(() => {
         fetchResponse(requestDataToSend);
         // 发送消息后触发事件，将第一条消息内容作为参数传递
         messages.push(
         {
             chatId: currentChatId as string,
-            content: inputMessage.value,
+            content: inputMessage,
             createTime: '',
             messageId: generateUUID(),
             roleId: 1,
@@ -284,7 +281,7 @@
         }
         ); // 将用户输入的消息添加到本地消息数组
         isLoading.value = true;
-        inputMessage.value = ''; // 清空输入框
+        inputMessage = ''; // 清空输入框
         showChatBox.value = true; // 显示聊天框
       }, 500);
     }
@@ -313,7 +310,6 @@
     const response = await axios.post(
       `/sse/chat/${chatId.value}`,
       requestDataToSend,
-      // flase,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -340,6 +336,8 @@
   };
   // 监听消息数组的变化，自动滚动到底部
   onMounted(() => {
+    store.commit('changeActiveName', 'second');
+    isFirstMessageInChat.value = true;
     scrollToBottom();
   });
   

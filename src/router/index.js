@@ -31,6 +31,11 @@ const routes=[
         component:()=>import('../views/check.vue')
     },
     {
+        path:'/test',
+        name:'',
+        component: ()=>import('../components/chat/healthQA.vue')
+    },
+    {
         path: '/setting',
         name: 'setting',
         component: () => import('../views/setting.vue'),
@@ -99,7 +104,7 @@ const routes=[
           {
             path: '/switchtab/ViewQ&A',
             name: 'ViewQ&A',
-            component: () => import('../components/chat/ViewQ&A/ViewQ&A.vue'),
+            component: () => import('../components/chat/healthQA.vue'),
           },
       ]
   },

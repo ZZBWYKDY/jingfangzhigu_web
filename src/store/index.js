@@ -12,9 +12,13 @@ const store = createStore({
     canSendMessage: true,
     isLoading: false,
     userImg:localStorage.getItem('headimg') || 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+    chatId: '5555',
   },
   mutations: {
     // 同步方法，用于修改状态
+    setChatId(state, chatId) {
+      state.chatId = chatId;
+    },
     // 设置Token
     setToken(state, token) {
       state.token = token;

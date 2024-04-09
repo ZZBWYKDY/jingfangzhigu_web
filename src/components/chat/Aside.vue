@@ -120,6 +120,7 @@ const selectChat = (chatId) => {
   // 这里可以调用获取对应聊天信息的方法
   selectedChatId.value = chatId;
   getMessagesByChatId(chatId);
+  store.commit('selectChat',chatId)
   // 向父组件发出事件
   emits("select-chat", chatId);
 };
@@ -139,6 +140,8 @@ const getMessagesByChatId = async (chatId) => {
     if (instance) {
       store.commit("setAllMessages", messageArray);
       instance.emit("messages-updated", messageArray);
+
+      store.commit('setChatId', chatId);
     }
   } catch (error) {
     console.error("", error);
@@ -168,6 +171,7 @@ const createNewChat = async () => {
     if (response.data && response.data.data) {
       getAllDialogues();
       selectChat(newChatId);
+      store.commit('setChatId',newChatId)
     }
   } catch (error) {
     console.error("创建对话失败:", error);
