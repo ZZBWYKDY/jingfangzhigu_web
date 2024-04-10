@@ -3,7 +3,7 @@
       <div class="scroll" style="height: 705px; overflow: hidden; overflow-y: scroll">
         <!-- 聊天框 -->
         <div
-          v-if="showChatBox"
+          
           v-for="(msg, index) in messages"
           :key="index"
           class="chat-container"
@@ -29,7 +29,7 @@
               </div>
               <div class="avatar">
                 <img
-                  src="@/assets/chat_pictures/icon.png"
+                :src="$store.state.userImg"
                   alt="User Avatar"
                   style="width: 40px; height: 40px; border-radius: 50%" />
               </div>
@@ -241,10 +241,6 @@
   
   const emits = defineEmits(['update-chat-name']);
   const sendMessage = (activeTab,inputMessage) => {
-    if (!canSendMessage.value || isLoading.value) {
-      ElMessage.error('回复消息正在生成');
-      return false;
-    }
     if (( inputMessage.trim() !== '' && store.state.allMessages) || activeTab) {
       const currentChatId = store.state.chatId;
       chatId.value = currentChatId || generateUUID();
@@ -252,7 +248,8 @@
         messages.splice(0, messages.length); // 清空当前消息数组
         isFirstMessageInChat.value = false;
         // emits('update-chat-name', inputMessage.value, chatId.value);
-        // updateChatName(chatId.value, inputMessage.value);
+        console.log(chatId.value, inputMessage)
+        updateChatName(chatId.value, inputMessage);
       }
       const requestDataToSend = {
         messageId: generateUUID(),
