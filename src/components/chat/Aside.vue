@@ -86,7 +86,7 @@ const props = defineProps({
 });
 
 watch(
-  () => props.newChatName,
+  () => store.state.chatname,
   (newVal, oldVal) => {
     console.log("newValnewVal", newVal);
     dialoguesArray.forEach((it) => {
@@ -121,6 +121,7 @@ const selectChat = (chatId) => {
   selectedChatId.value = chatId;
   getMessagesByChatId(chatId);
   store.commit('selectChat',chatId)
+  store.commit('changeActiveName','second')
   // 向父组件发出事件
   emits("select-chat", chatId);
 };
@@ -173,6 +174,7 @@ const createNewChat = async () => {
       getAllDialogues();
       selectChat(newChatId);
       store.commit('setChatId',newChatId)
+      store.commit('changeActiveName','second')
     }
   } catch (error) {
     console.error("创建对话失败:", error);

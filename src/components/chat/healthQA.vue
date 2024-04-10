@@ -251,6 +251,7 @@
         // emits('update-chat-name', inputMessage.value, chatId.value);
         console.log(chatId.value, inputMessage)
         updateChatName(chatId.value, inputMessage);
+        store.commit("changechatname",inputMessage)
       }
       const requestDataToSend = {
         messageId: generateUUID(),

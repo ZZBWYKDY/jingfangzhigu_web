@@ -93,6 +93,14 @@ const handleMenuClick = (tab) => {
   store.commit("changeActiveName", tab.name);
   router.push(tab.path);
 };
+//处理更改
+const handlechange=(name)=>{
+  const path = tabs.find(tab => tab.name === name)?.path;
+
+console.log(path); 
+router.push(path);
+console.log("chenggong")
+};
 
 // 处理录音开始/结束
 function startRecording() {
@@ -114,6 +122,8 @@ const sendMessage = () => {
   if (inputMessage.value.trim() !== "") {
     isLoading.value = true;
     store.commit('setIsgenerate');
+    if(store.state.activeName==='first'){store.commit('changeActiveName','second')}
+    
     store.commit("changeInput", inputMessage.value.trim());
     inputMessage.value = "";
   }
@@ -135,7 +145,11 @@ watch(
   () => store.state.activeName,
   (newValue, oldValue) => {
     const activeName = newValue;
-    console.log("inputmessage 值已更改:", newValue);
+    const pathh = tabs.find(tab => tab.name === activeName)?.path;
+
+    console.log(pathh); 
+    router.push(pathh);
+    console.log("active 值已更改:", newValue);
   }
 );
 </script>
@@ -159,7 +173,7 @@ watch(
           </div>
           <!-- 底部输入框 -->
           <el-row class="foot">
-            <el-tabs v-model="activeName" class="demo-tabs" :default-active="0">
+            <el-tabs v-model="store.state.activeName" class="demo-tabs" :default-active="0" @tab-change='handlechange'>
               <el-tab-pane v-for="tab in tabs" :key="tab.name" :name="tab.name">
                 <template #label>
                   <span class="custom-tabs-label" @click="handleMenuClick(tab)">
