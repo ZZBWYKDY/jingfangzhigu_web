@@ -3,7 +3,6 @@
       <div class="scroll" style="height: 705px; overflow: hidden; overflow-y: scroll">
         <!-- 聊天框 -->
         <div
-          v-if="showChatBox"
           v-for="(msg, index) in messages"
           :key="index"
           class="chat-container"
@@ -62,12 +61,11 @@
   <style src="@/components/chat/main.css"></style>
   
   <script setup lang="ts">
-  import { LoadingOutlined } from '@ant-design/icons-vue';
   import {  ElMessage } from 'element-plus';
   import { ref,  onMounted, watch,  onUnmounted, reactive, nextTick,  defineProps,
-    defineEmits, toRaw,  PropType, computed,} from 'vue';
+    defineEmits, toRaw,  PropType,} from 'vue';
   import axios from 'axios';
-  import { axiosPost, axiosGet, axiosDelete } from '@/utils/http';
+  import { axiosPost } from '@/utils/http';
   import marked from 'marked/marked.min.js';
   import {useStore} from 'vuex';
   const inputMessage = ref('');
@@ -113,7 +111,8 @@
       console.log("activeName.value", newVal);
       if (newVal !== oldVal && newVal) {
         isFirstMessageInChat.value = true;
-        
+        inputMessage.value = newVal;
+        sendMessage(newVal); // 重新订阅新的chatId
       } else {
       }
     }
@@ -138,21 +137,20 @@
     (newVal, oldVal) => {
       if(newVal) {
         inputMessage.value = newVal;
-        sendMessage(store.state.activeName, newVal);
+        sendMessage(newVal);
       }
     }
   )
   watch(
     () => store.state.chatId,
     (newVal, oldVal) => {
-      console.log('222222222222');
-      
+      console.log('121221212')
       if (newVal !== oldVal && newVal) {
         chatId.value = newVal; // 更新当前chatId
         subscribeToChat(); // 重新订阅新的chatId
-        isFirstMessageInChat.value = true;
         canSendMessage.value = true;
         isLoading.value = false;
+        messages.values = store.state.allMessages
       }
     }
   );
@@ -240,18 +238,18 @@
   };
   
   const emits = defineEmits(['update-chat-name']);
-  const sendMessage = (activeTab,inputMessage) => {
+  const sendMessage = (inputMessage) => {
     if (!canSendMessage.value || isLoading.value) {
       ElMessage.error('回复消息正在生成');
       return false;
     }
-    if (( inputMessage.trim() !== '' && store.state.allMessages) || activeTab) {
+    if (( inputMessage.trim() !== '' && store.state.allMessages)) {
       const currentChatId = store.state.chatId;
       chatId.value = currentChatId || generateUUID();
       if (isFirstMessageInChat.value && (!store.state.allMessages || store.state.allMessages.length === 0)) {
         messages.splice(0, messages.length); // 清空当前消息数组
         isFirstMessageInChat.value = false;
-        // emits('update-chat-name', inputMessage.value, chatId.value);
+        emits('update-chat-name', inputMessage.value, chatId.value);
         // updateChatName(chatId.value, inputMessage.value);
       }
       const requestDataToSend = {
@@ -259,7 +257,7 @@
         text: inputMessage,
         messages: toRaw([...messages]),
       };
-      activeTab != 'third' && subscribeToChat();
+      store.state.activeName != 'third' && subscribeToChat();
     
       setTimeout(() => {
         fetchResponse(requestDataToSend);
@@ -336,7 +334,7 @@
   };
   // 监听消息数组的变化，自动滚动到底部
   onMounted(() => {
-    store.commit('changeActiveName', 'second');
+    // store.commit('changeActiveName', 'second');
     isFirstMessageInChat.value = true;
     scrollToBottom();
   });

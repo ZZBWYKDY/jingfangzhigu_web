@@ -152,6 +152,7 @@ const getMessagesByChatId = async (chatId) => {
 getAllDialogues();
 
 const createNewChat = async () => {
+  store.state.allMessages = [];
   try {
     const newChatId = generateUUID();
     const response = await axios.post(
@@ -169,6 +170,7 @@ const createNewChat = async () => {
       }
     );
     if (response.data && response.data.data) {
+      store.commit('clearChatMessages',newChatId);
       getAllDialogues();
       selectChat(newChatId);
       store.commit('setChatId',newChatId)
