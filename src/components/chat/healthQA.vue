@@ -3,7 +3,7 @@
       <div class="scroll" style="height: 705px; overflow: hidden; overflow-y: scroll">
         <!-- 聊天框 -->
         <div
-          v-if="showChatBox"
+          
           v-for="(msg, index) in messages"
           :key="index"
           class="chat-container"
@@ -129,6 +129,7 @@
         chatId.value = store.state.chatId
         isFirstMessageInChat.value = false;
       } else {
+        filterMessages();
         isFirstMessageInChat.value = true;
       }
     }

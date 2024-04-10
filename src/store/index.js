@@ -19,6 +19,9 @@ const store = createStore({
     setChatId(state, chatId) {
       state.chatId = chatId;
     },
+    clearChatMessages(state,chatId) {
+      state.allMessages = [];
+    },
     // 设置Token
     setToken(state, token) {
       state.token = token;
