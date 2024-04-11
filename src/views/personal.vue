@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import {ref, onMounted, computed} from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { UserOutlined } from "@ant-design/icons-vue";
 import { SettingOutlined } from "@ant-design/icons-vue";
 import { ElMessage } from "element-plus";
-import { h } from 'vue';
-import { ElNotification } from 'element-plus';
+import { h } from "vue";
+import { ElNotification } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
 import type { UploadProps } from "element-plus";
-import { axiosPost,axiosGet } from "@/utils/http";
+import { axiosPost, axiosGet } from "@/utils/http";
 import axios from "axios";
 const radio2 = ref("1");
 const input2 = ref("");
@@ -37,13 +37,10 @@ const options = [
   },
 ];
 
-let token = ref("")
-computed(
-    () => {
-      token = this.$store.state.token;
-    }
-);
-
+let token = ref("");
+computed(() => {
+  token = this.$store.state.token;
+});
 
 const handleAvatarSuccess: UploadProps["onSuccess"] = (
   response,
@@ -89,9 +86,9 @@ const selectedKeys = ref(["personal"]); // 更新为匹配 'user' 键
 const router = useRouter();
 
 const selectItem = ({ item, key }) => {
-  if (item === 'history' || 'help') {}
-  else {
-  router.push({ path: key });
+  if (item === "history" || "help") {
+  } else {
+    router.push({ path: key });
   }
 };
 const handleMenuClick = (key) => {
@@ -99,14 +96,19 @@ const handleMenuClick = (key) => {
   selectItem({ key });
 };
 
-const getUserInfo = () => {
+const logout = () => {
+  localStorage.setItem("token", "");
+  this.$store.commit("setToken", "");
+  router.push("/goLogin");
+};
 
-      axiosGet("/user/info").then((res) => {
-        if (res.data && res.data.code == "SUCCESS") {
-          userInfo.value = { ...res.data.data.userInfo };
-          userInfoBefore.value = { ...res.data.data.userInfo };
-        }
-      });
+const getUserInfo = () => {
+  axiosGet("/user/info").then((res) => {
+    if (res.data && res.data.code == "SUCCESS") {
+      userInfo.value = { ...res.data.data.userInfo };
+      userInfoBefore.value = { ...res.data.data.userInfo };
+    }
+  });
 
   // axios
   //   .get("/user/info", {
@@ -134,14 +136,14 @@ const handleUserInfoUpload = () => {
 
   // 字段名称映射
   const fieldMap = {
-    age: '年龄',
-    height: '身高',
-    weight: '体重'
+    age: "年龄",
+    height: "身高",
+    weight: "体重",
   };
 
   // 验证 age、height 和 weight 字段
   const numberRegex = /^\d*(\.\d+)?$/;
-  const fieldsToCheck = ['age', 'height', 'weight'];
+  const fieldsToCheck = ["age", "height", "weight"];
   fieldsToCheck.forEach((field) => {
     if (!numberRegex.test(userInfo.value[field])) {
       invalidFields.push(fieldMap[field] || field); // 使用映射的字段名称，如果映射不存在则使用原始字段名
@@ -150,10 +152,10 @@ const handleUserInfoUpload = () => {
 
   // 如果有字段不符合要求，显示通知并返回
   if (invalidFields.length > 0) {
-    let notificationMessage = `${invalidFields.join('，')}只允许输入数字`;
+    let notificationMessage = `${invalidFields.join("，")}只允许输入数字`;
     ElNotification({
-      message: h('i', { style: 'color: red' }, notificationMessage),
-      type: 'error',
+      message: h("i", { style: "color: red" }, notificationMessage),
+      type: "error",
     });
     return; // 退出函数，不再发送请求
   }
@@ -167,29 +169,29 @@ const handleUserInfoUpload = () => {
   formObj.append("height", userInfo.value.height);
   formObj.append("weight", userInfo.value.weight);
   formObj.append("anamnesis", userInfo.value.anamnesis);
-  axiosPost(`/user/info`,formObj,false,{
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: localStorage.getItem("token"),
-      },
-    }).then((res) => {
-      console.log(res);
-      if (res.data && res.data.code == "SUCCESS") {
-        userInfoBefore.value.avatar = userInfo.value.avatar;
-        localStorage.setItem("headimg", userInfo.value.avatar);
-        ElNotification({
-          message: h('i',{ style: 'color:teal' },'更新用户信息成功'),
-          type: 'success',
-        })
-      }
-    })
-    // .catch(function (error) {
-    //   console.log(error.toJSON());
-    //   ElNotification({
-    //     message: h('i',{ style: 'color:red' },'更新用户信息失败'),
-    //     type: 'error',
-    //   })
-    // });
+  axiosPost(`/user/info`, formObj, false, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: localStorage.getItem("token"),
+    },
+  }).then((res) => {
+    console.log(res);
+    if (res.data && res.data.code == "SUCCESS") {
+      userInfoBefore.value.avatar = userInfo.value.avatar;
+      localStorage.setItem("headimg", userInfo.value.avatar);
+      ElNotification({
+        message: h("i", { style: "color:teal" }, "更新用户信息成功"),
+        type: "success",
+      });
+    }
+  });
+  // .catch(function (error) {
+  //   console.log(error.toJSON());
+  //   ElNotification({
+  //     message: h('i',{ style: 'color:red' },'更新用户信息失败'),
+  //     type: 'error',
+  //   })
+  // });
   // axios
   //   .post(`/user/info`, formObj, {
   //     headers: {
@@ -197,7 +199,6 @@ const handleUserInfoUpload = () => {
   //       Authorization: localStorage.getItem("token"),
   //     },
   //   })
-    
 };
 
 const handleFileUpload = (fileObj) => {
@@ -269,6 +270,7 @@ if (headUrl) {
             >
               {{ item.title }}
             </a-menu-item>
+            <el-button type="primary" @click="logout">退出登录</el-button>
           </a-menu>
         </div>
       </div>
