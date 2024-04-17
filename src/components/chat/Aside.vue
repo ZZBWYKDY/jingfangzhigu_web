@@ -150,7 +150,21 @@ const getMessagesByChatId = async (chatId) => {
 };
 //调用所有对话的函数
 getAllDialogues();
+console.log('Aside页面');
 
+// TODO根据isFirstMessageInChat的值调用新建对话的函数
+watch(
+    () => store.state.isFirstMessageInChat,
+    (newValue, oldValue) => {
+      console.log("监听到isFirstMessageInChat的状态改变了");
+      
+        if (newValue !== oldValue) {
+          createNewChat();
+          store.commit('setIsFirstMessageInChat',false);
+        }
+      }
+  )
+// 新建对话
 const createNewChat = async () => {
   store.state.allMessages = [];
   try {

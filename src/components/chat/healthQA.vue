@@ -110,7 +110,6 @@
     (newVal, oldVal) => {
       console.log("activeName.value", newVal);
       if (newVal !== oldVal && newVal) {
-        isFirstMessageInChat.value = true;
         inputMessage.value = newVal;
         sendMessage(newVal); // 重新订阅新的chatId
       } else {
@@ -125,10 +124,15 @@
         filterMessages();
         // inputMessage.value = newVal;
         // sendMessage(newVal); // 重新订阅新的chatId
+        console.log(newVal.length,newVal,'111');
+        
         chatId.value = store.state.chatId
         isFirstMessageInChat.value = false;
+        store.commit('setIsFirstMessageInChat',false);
       } else {
         isFirstMessageInChat.value = true;
+        console.log(233);
+        
       }
     }
   );
@@ -335,7 +339,7 @@
   // 监听消息数组的变化，自动滚动到底部
   onMounted(() => {
     // store.commit('changeActiveName', 'second');
-    isFirstMessageInChat.value = true;
+    // isFirstMessageInChat.value = true;
     scrollToBottom();
   });
   

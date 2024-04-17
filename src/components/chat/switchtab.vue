@@ -75,7 +75,7 @@ const canSendMessage = computed(()=>store.getters.getCanSendMessage);
 const isLoading = computed(()=>store.getters.getIsLoading);
 const inputMessage = ref("");
 const activeName = ref("");
-
+let isFirstMessageInChat = ref(false);
 // 监听语音识别
 onMounted(() => {
   activeName.value = getActiveNameByPath(route.path);
@@ -135,6 +135,11 @@ watch(
   () => store.state.activeName,
   (newValue, oldValue) => {
     const activeName = newValue;
+    isFirstMessageInChat.value = true;
+    console.log("切换页面时isFirstMessageInChat的值改变了");
+    
+    store.commit('isFirstMessageInChat',isFirstMessageInChat.value)
+  
     console.log("inputmessage 值已更改:", newValue);
   }
 );
