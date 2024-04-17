@@ -106,6 +106,11 @@ const routes=[
             name: 'ViewQ&A',
             component: () => import('../components/chat/healthQA.vue'),
           },
+          {
+            path: '/switchtab/tongue',
+            name: 'tongue',
+            component: () => import('../components/chat/Shetai/shetai.vue'),
+          },
       ]
   },
 ]

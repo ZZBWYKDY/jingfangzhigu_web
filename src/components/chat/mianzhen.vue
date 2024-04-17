@@ -182,6 +182,7 @@ const buttons = [
 ] as const;
 
 const renderMessage = (content) => {
+  console.log(content)
   if (!content) {
     return marked.parse(messageContent.value); // 如果content为空，则返回messageContent
   }
@@ -535,7 +536,8 @@ const getFaceByImage = (url) => {
   axiosPost(`/face/diagnosis?img=${url}`).then((response) => {
     console.log(
       "response.data.faceDiagnosis",
-      response.data.data.faceDiagnosis
+      response.data.data.faceDiagnosis,
+      `/face/diagnosis?img=${url}`
     );
     const faceDiagnosisnoimg = {
       ...response.data.data.faceDiagnosis,
