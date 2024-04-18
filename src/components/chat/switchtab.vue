@@ -75,7 +75,7 @@ const canSendMessage = computed(()=>store.getters.getCanSendMessage);
 const isLoading = computed(()=>store.getters.getIsLoading);
 const inputMessage = ref("");
 const activeName = ref("");
-let isFirstMessageInChat = ref(false);
+
 // 监听语音识别
 onMounted(() => {
   activeName.value = getActiveNameByPath(route.path);
@@ -116,7 +116,17 @@ const sendMessage = () => {
     store.commit('setIsgenerate');
     store.commit("changeInput", inputMessage.value.trim());
     inputMessage.value = "";
+
   }
+  // 检查是否是第一次发送消息
+  if (store.state.allMessages.length === 0) {
+      store.commit('setIsFirstMessageInChat', true);
+      console.log("是第一次发消息")
+    } else {
+      store.commit('setIsFirstMessageInChat', false);
+      console.log("不是是第一次发消息")
+    }
+  
 };
 
 const uploadImage = (request) => {
@@ -135,10 +145,6 @@ watch(
   () => store.state.activeName,
   (newValue, oldValue) => {
     const activeName = newValue;
-    isFirstMessageInChat.value = true;
-    console.log("切换页面时isFirstMessageInChat的值改变了");
-    
-    store.commit('isFirstMessageInChat',isFirstMessageInChat.value)
   
     console.log("inputmessage 值已更改:", newValue);
   }

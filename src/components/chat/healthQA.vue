@@ -130,8 +130,6 @@
         isFirstMessageInChat.value = false;
         store.commit('setIsFirstMessageInChat',false);
       } else {
-        isFirstMessageInChat.value = true;
-        console.log(233);
         
       }
     }

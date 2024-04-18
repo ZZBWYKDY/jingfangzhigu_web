@@ -156,14 +156,13 @@ console.log('Aside页面');
 watch(
     () => store.state.isFirstMessageInChat,
     (newValue, oldValue) => {
-      console.log("监听到isFirstMessageInChat的状态改变了");
-      
-        if (newValue !== oldValue) {
+        if (newValue === true) {
           createNewChat();
           store.commit('setIsFirstMessageInChat',false);
         }
       }
   )
+
 // 新建对话
 const createNewChat = async () => {
   store.state.allMessages = [];
