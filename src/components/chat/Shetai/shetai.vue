@@ -617,4 +617,8 @@ const setLoadingFalse = () => {
       afterLoading.value=true
     }
     });
+
+    onMounted(()=>{
+      store.commit('changeActiveName', 'sixth');
+    })
 </script>

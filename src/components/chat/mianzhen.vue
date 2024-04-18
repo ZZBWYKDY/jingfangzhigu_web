@@ -556,4 +556,8 @@ const getFaceByImage = (url) => {
     store.commit("setIsLoading", false);
   });
 };
+
+onMounted(()=>{
+      store.commit('changeActiveName', 'third');
+    })
 </script>
