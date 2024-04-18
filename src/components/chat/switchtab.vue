@@ -121,10 +121,8 @@ const sendMessage = () => {
   // 检查是否是第一次发送消息
   if (store.state.allMessages.length === 0) {
       store.commit('setIsFirstMessageInChat', true);
-      console.log("是第一次发消息")
     } else {
       store.commit('setIsFirstMessageInChat', false);
-      console.log("不是是第一次发消息")
     }
   
 };
