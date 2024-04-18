@@ -50,6 +50,12 @@ const tabs = [
     path: "/switchtab/face",
   },
   {
+    name: "sixth",
+    label: "舌苔问诊",
+    icon: Camera,
+    path: "/switchtab/tongue",
+  },
+  {
     name: "forth",
     label: "数据侦察",
     icon: DataAnalysis,
@@ -78,6 +84,7 @@ const activeName = ref("");
 let isFirstMessageInChat = ref(false);
 // 监听语音识别
 onMounted(() => {
+  console.log(store.state.activeName)
   activeName.value = getActiveNameByPath(route.path);
   recognition.onresult = (event) => {
     inputMessage.value = event.results[0][0].transcript;
@@ -90,6 +97,7 @@ const getActiveNameByPath = (path)=>{
 
 // 处理菜单点击事件
 const handleMenuClick = (tab) => {
+  console.log(tab)
   store.commit("changeActiveName", tab.name);
   router.push(tab.path);
 };

@@ -1,5 +1,7 @@
 import { createStore } from 'vuex';
 import MediRush from './module/MediRush';
+import SheTai from './module/SheTai';
+
 const store = createStore({
   state: {
     // 状态/数据
@@ -9,6 +11,7 @@ const store = createStore({
     activeName: "first",
     allMessages: [],
     faceImgUrl: "",
+    tongueImgUrl:"",
     canSendMessage: true,
     isLoading: false,
     userImg:localStorage.getItem('headimg') || 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
@@ -16,6 +19,9 @@ const store = createStore({
     isFirstMessageInChat: false,
   },
   mutations: {
+    changechatname(state,msg){
+    state.chatname=msg;
+    },
     // 同步方法，用于修改状态
     setChatId(state, chatId) {
       state.chatId = chatId;
@@ -45,6 +51,9 @@ const store = createStore({
     setFaceImg(state, img) {
       state.faceImgUrl = img;
     },
+    setTongueImg(state,img){
+      state.tongueImgUrl=img;
+    },
     setCanSendMessage(state, flag) {
       state.canSendMessage = flag;
     },
@@ -71,7 +80,8 @@ const store = createStore({
     },
   },
   modules:{
-    MediRush
+    MediRush,
+    SheTai,
   }
 });
 
