@@ -72,5 +72,6 @@ margin-top: 10px;
     background-color: transparent;
 }
 .selected {
-    background-color: #7499F4  !important;
+    background-color: #b0c4f7  !important;
+    /* opacity: 0.5; */
 }
